@@ -15,4 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/test', 'GooglePlacesAPIController');
+Route::middleware(['cors'])->group(function () {
+    Route::options('placelist', function () {
+        return response()->json();
+    });
+
+    //Route::post('placelist', 'GooglePlacesAPIController@index');
+    Route::get('placelist', 'GooglePlacesAPIController@index');
+    Route::get('rote', 'GoogleDirectionsAPIController@index');
+});
+//Route::resource('/test', 'GooglePlacesAPIController');
+//Route::get('test', 'GooglePlacesAPIController@index');
+//Route::match(["get", "options"], "test", "GooglePlacesAPIController@index");

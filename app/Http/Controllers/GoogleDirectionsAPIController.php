@@ -4,23 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class GooglePlacesAPIController extends Controller
+class GoogleDirectionsAPIController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $keyword = "ランチ　香川県";
-        $baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/";
-        //$baseUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/";
+        $origin = "香川県高松市屋島西町2292-1";
+        $destination = "高知城";
+        $mode = "transit";
+        $baseUrl = "https://maps.googleapis.com/maps/api/directions/";
         $fileType = "json";
         $query    = [
             'key' => "AIzaSyDdNwvpwNP85oA8D2P9eGXEMp_WYAL4w1Y",
-            'query' => $keyword,
-            'language' => "ja",
+            'origin' => $origin,
+            'destination' => $destination,
+            'mode' => $mode,
+            'region' => "ja",
         ];
         $query = http_build_query($query);
         $url   = $baseUrl.$fileType.'?'.$query;
