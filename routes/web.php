@@ -15,15 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['cors'])->group(function () {
-    Route::options('placelist', function () {
-        return response()->json();
-    });
+//候補地リストの取得 引数：目的地/目的
+Route::get('/placelist', 'GooglePlacesAPIController@getPlaceList');
 
-    //Route::post('placelist', 'GooglePlacesAPIController@index');
-    Route::get('placelist', 'GooglePlacesAPIController@index');
-    Route::get('rote', 'GoogleDirectionsAPIController@index');
-});
-//Route::resource('/test', 'GooglePlacesAPIController');
-//Route::get('test', 'GooglePlacesAPIController@index');
-//Route::match(["get", "options"], "test", "GooglePlacesAPIController@index");

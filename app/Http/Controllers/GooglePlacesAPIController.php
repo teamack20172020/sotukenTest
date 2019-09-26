@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class GooglePlacesAPIController extends Controller
+class GooglePlacesAPIController extends apiController
 {
     /**
      * Display a listing of the resource.
@@ -13,34 +13,32 @@ class GooglePlacesAPIController extends Controller
      */
     public function index()
     {
-        $keyword = "ランチ　香川県";
-        $baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/";
-        //$baseUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/";
-        $fileType = "json";
-        $query    = [
-            'key' => "AIzaSyDdNwvpwNP85oA8D2P9eGXEMp_WYAL4w1Y",
-            'query' => $keyword,
-            'language' => "ja",
-        ];
-        $query = http_build_query($query);
-        $url   = $baseUrl.$fileType.'?'.$query;
-
-        // fire
-        $curl = curl_init($url);
-        $options = [
-          CURLOPT_HTTPGET => true,//GET
-          CURLOPT_RETURNTRANSFER => true // fetch datum as strings
-        ];
-
-        curl_setopt_array($curl, $options);
-        $response = curl_exec($curl);
-		$result = array();
-		foreach((array) $response as $value){
-			array_push($result , $value);
-		}
-		return $result;
+        //
     }
 
+    public function getPlaceList(){	
+        $this->init();
+		$list  = $this->placelist;
+		$results = array();
+		foreach((array) $list as $value){
+			array_push($results , $value);
+		}
+		return $results;
+    }
+    
+    private function init(){
+        $keyword = "ランチ　香川県";
+		$baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/";
+		$key = "AIzaSyDdNwvpwNP85oA8D2P9eGXEMp_WYAL4w1Y";
+		$type = true;
+		$param    = [
+			'query' => $keyword,
+			'language' => "ja",
+		];
+		parent::__construct($baseUrl,$key,$type,$param);
+		$list = json_decode($this->requestApi());
+		$this->placelist = $list->results;
+    }
     /**
      * Show the form for creating a new resource.
      *
