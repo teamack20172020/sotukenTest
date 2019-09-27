@@ -19,5 +19,9 @@ class questionController extends Controller
         return $items;
     }
 
-
+    public function getObjectiveList(){	
+        $objective = new objective();
+        $items = $objective->getAll();
+        return $items;
+    }
 }

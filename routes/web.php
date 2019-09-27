@@ -19,6 +19,8 @@ Route::get('/', function () {
 Route::get('/placelist', 'GooglePlacesAPIController@getPlaceList');
 //質問リストの取得 引数：
 Route::get('/questionlist', 'questionController@getQuestionList');
+//目的リストの取得
+Route::get('/objectiveList', 'questionController@getObjectiveList');
 
 //質問リストの取得 引数：
 Route::get('/questionlist/', 'questionController@getQuestionList');
