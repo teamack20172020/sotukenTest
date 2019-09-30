@@ -16,11 +16,13 @@ Route::get('/', function () {
 });
 
 //候補地リストの取得 引数：目的地/目的
-Route::get('/placelist', 'GooglePlacesAPIController@getPlaceList');
+Route::get('/place/getList', 'GooglePlacesAPIController@getPlaceList');
 //質問リストの取得 引数：
-Route::get('/questionlist', 'questionController@getQuestionList');
+Route::get('/question/getList', 'questionController@getQuestionList');
 //目的リストの取得
-Route::get('/objectiveList', 'questionController@getObjectiveList');
+Route::get('/objective/getList', 'questionController@getObjectiveList');
+//パラメタの保存
+Route::get('/questionparam/save/{param}/{id}', 'questionController@saveQuestionparam');
 
 //質問リストの取得 引数：
 Route::get('/questionlist/', 'questionController@getQuestionList');
