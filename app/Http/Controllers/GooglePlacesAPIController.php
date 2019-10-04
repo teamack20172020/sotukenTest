@@ -16,8 +16,9 @@ class GooglePlacesAPIController extends apiController
         //
     }
 
-    public function getPlaceList(){	
-        $this->init();
+    public function getPlaceList($area,$objective){
+        $keyword = $area + "　" + $objective;
+        $this->init($keyword);
 		$list  = $this->placelist;
 		$results = array();
 		foreach((array) $list as $value){
@@ -26,8 +27,7 @@ class GooglePlacesAPIController extends apiController
 		return $results;
     }
     
-    private function init(){
-        $keyword = "ランチ　香川県";
+    private function init($keyword){
 		$baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/";
 		$key = "AIzaSyDdNwvpwNP85oA8D2P9eGXEMp_WYAL4w1Y";
 		$type = true;
