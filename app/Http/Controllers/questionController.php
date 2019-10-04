@@ -21,7 +21,7 @@ class questionController extends Controller
     }
 
     public function getObjectiveList(){	
-        $objective = new objective();
+        $objective = new Objective();
         $items = $objective->getAll();
         return $items;
     }
