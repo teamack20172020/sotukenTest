@@ -9,7 +9,7 @@ class googleApiController extends apiController
 
     public function getPlaceList($area,$objective){
         $keyword = $area . "　" . $objective;
-		$baseUrl = Config::get('api.GoogleApi.place_text_url');
+		$baseUrl = Config::get('apisetting.GoogleApi.place_text_url');
 		$param    = [
 			'query' => $keyword,
 			'language' => "ja",
@@ -19,7 +19,7 @@ class googleApiController extends apiController
 	
 	public function getDirectionList($from,$to){
         //$keyword = $area + "　" + $objective;
-		$baseUrl = Config::get('api.GoogleApi.directions_url');
+		$baseUrl = Config::get('apisetting.GoogleApi.directions_url');
 		$param    = [
 		//	'query' => $keyword,
 		//	'language' => "ja",
