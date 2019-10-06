@@ -18,7 +18,7 @@ return [
         'place_text_url' => 'https://maps.googleapis.com/maps/api/place/textsearch/',
         'directions_url' => 'https://maps.googleapis.com/maps/api/directions/',
         //'key' => 'AIzaSyBezdwuYFibJdo7TIjPJb_dbyq7Wi-vhfg', 
-        'key' = "AIzaSyDdNwvpwNP85oA8D2P9eGXEMp_WYAL4w1Y",
+        'key' => "AIzaSyDdNwvpwNP85oA8D2P9eGXEMp_WYAL4w1Y",
 
     ],
 
