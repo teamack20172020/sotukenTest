@@ -26,9 +26,8 @@ class questionController extends Controller
         return $items;
     }
 
-    public function saveQuestionparam($param){
-        $list = explode("&",$param,2);
+    public function saveQuestionparam($objectiveId,$questionparam){
         $questionparam = new Questionparam();
-        $questionparam->saveRow($list[0],$list[1]);
+        $questionparam->saveRow($objectiveId,$questionparam);
     }
 }
