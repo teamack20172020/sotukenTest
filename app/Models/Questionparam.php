@@ -9,10 +9,10 @@ class Questionparam extends Model
     //
     protected $table = 'questionparam';
 
-    public function saveRow($questionparam,$objectiveId){
+    public function saveRow($objectiveId,$questionparam){
         \DB::table($this->table)->insert([
+            'objective_id'=>$objectiveId ,
             'parameter'=>$questionparam ,
-            'objective_id'=>$objectiveId 
         ]);
     }
 }
