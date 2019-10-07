@@ -22,7 +22,7 @@ Route::get('/question/getList', 'questionController@getQuestionList');
 //目的リストの取得
 Route::get('/objective/getList', 'questionController@getObjectiveList');
 //パラメタの保存
-Route::get('/questionparam/save/{param}', 'questionController@saveQuestionparam');
+Route::get('/questionparam/save/{objectiveId}/{answer}', 'questionController@saveQuestionparam');
 
 
 

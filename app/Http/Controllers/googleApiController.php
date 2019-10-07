@@ -15,9 +15,8 @@ class googleApiController extends apiController
 			'query' => $keyword,
 			'language' => "ja",
 		];
-		$results = $this->post($baseUrl,$param);
-		return $results;
-    }
+		return $this->post($baseUrl,$param);
+	}
 	
 	public function getDirectionList($from,$to){
         //$keyword = $area + "　" + $objective;
@@ -26,7 +25,7 @@ class googleApiController extends apiController
 		//	'query' => $keyword,
 		//	'language' => "ja",
 		];
-		return post($baseUrl,$param);
+		return $this->post($baseUrl,$param);
 	}
 	
     private function post($baseUrl,$param){
