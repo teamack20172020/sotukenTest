@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Service;
 
 use Illuminate\Http\Request;
 use app\Config;
 
-class googleApiController extends apiController
+class googleApiService extends apiService
 {
 
     public function getPlaceList($area,$objective){

@@ -17,10 +17,10 @@ class placesController extends Controller
         return $items;
     }
 
+    //id 県コード
     public function getPlaceKeyList($id){
         $placekeyword = new Placekeyword();
         $items = $placekeyword->findByAreaId($id);
-        return $items;
     }
 
 

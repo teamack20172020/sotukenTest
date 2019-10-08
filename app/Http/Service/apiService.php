@@ -1,10 +1,9 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Service;
 
 use Illuminate\Http\Request;
 
-class apiController extends Controller
-{
+class apiService {
 
 	//APIURL
 	protected  $baseUrl;
