@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Placekeyword extends Model
 {
-    //
-    public function findById($id){	
-        $items = \DB::table($this->table)->where('id',$id)->get();
+    //県コード別に取得
+    public function findByAreaId($areaid){	
+        $items = \DB::table($this->table)->where('id',$areaid)->get();
         return $items;
     }
 
