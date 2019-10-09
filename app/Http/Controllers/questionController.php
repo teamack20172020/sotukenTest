@@ -30,7 +30,7 @@ class questionController extends Controller
         $maxId = $questionanalyze->getMaxAnswerId() + 1;
         $answerList = explode("q",$answer);
         $insData = [];
-        for($i=0;i<$answerList.length;$i++){
+        for($i=0;i<count($answerList);$i++){
             $question_id = intval(substr(answerList[$i],0,4));
             $answerFlg = substr(answerList[$i],-1,1);
             $insData = array_add([
