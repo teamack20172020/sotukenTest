@@ -22,5 +22,23 @@ class questionController extends Controller
     public function saveQuestionparam($objectiveId,$answer){
         $questionparam = new Questionparam();
         $questionparam->saveRow($objectiveId,$answer);
+        saveQuestionAnalyze($objectiveId,$answer);
+    }
+
+    public function saveQuestionAnalyze($objectiveId,$answer){
+        $questionanalyze = new Questionanalyze();
+        $maxId = $questionanalyze->getMaxAnswerId() + 1;
+        $answerList = explode("q",$answer);
+        $insData = [];
+        for($i=0;i<$answerList.length;$i++){
+            $question_id = intval(substr(answerList[$i],0,4));
+            $answerFlg = substr(answerList[$i],-1,1);
+            $insData = array_add([
+                            "answer_id"=>$maxId,
+                            "objective_id"=>$objectiveId,
+                            "question_id"=>$question_id,
+                            "answer"=>$answerFlg]);
+        }
+        $questionanalyze->saveList($insData);
     }
 }
