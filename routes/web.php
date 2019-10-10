@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 //候補地リストの取得 引数：目的地/目的
-Route::get('/place/getList/{area}/{objective}', 'googleApiController@getPlaceList');
+Route::get('/place/getList/{areaId}/{objectiveId}', 'placesController@getPlaceKeyList');
 //目的リストの取得
 Route::get('/objective/getList', 'placesController@getObjectiveList');
 //質問リストの取得 引数：
