@@ -9,7 +9,7 @@ class Placekeyword extends Model
     protected $table = 'placekeyword';
     //県コード別に取得
     public function findByAreaId($areaId){	
-        $items = \DB::table($this->table)->where('area_id',$areaId)->where('objective_id',1)->get();
+        $items = \DB::table($this->table)->where('area_id',$areaId)->get();
         return $items;
     }
 

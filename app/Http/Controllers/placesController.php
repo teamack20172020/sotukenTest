@@ -21,7 +21,7 @@ class placesController extends Controller
     }
 
     //id 県コード
-    public function getPlaceKeyList($areaId,$objectiveId){
+    public function savePlaceList($areaId,$objectiveId){
         $placelist = new Placelist();
         $placekeyword = new Placekeyword();
 

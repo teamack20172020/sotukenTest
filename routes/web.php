@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//候補地リストの取得 引数：目的地/目的
-Route::get('/place/getList/{areaId}/{objectiveId}', 'placesController@getPlaceKeyList');
+//候補地リストの更新　引数：目的地/目的
+Route::get('/place/getList/{areaId}/{objectiveId}', 'placesController@savePlaceList');
 //目的リストの取得
 Route::get('/objective/getList', 'placesController@getObjectiveList');
 //質問リストの取得 引数：
