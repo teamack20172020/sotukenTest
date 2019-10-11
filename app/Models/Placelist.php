@@ -9,7 +9,7 @@ class Placelist extends Model
     protected $table = 'placelist';
     //県コード・目的別に取得
     public function findByAreaIdAndObjectId($areaId){	
-        $items = \DB::table($this->table)->where('id',$areaId)->get();
+        $items = \DB::table($this->table)->where('area_id',$areaId)->get();
         return $items;
     }
 
@@ -19,6 +19,6 @@ class Placelist extends Model
 
     public function deleteByAreaId($areaId)
     {
-        \DB::table($this->table)->where('id',$areaId)->delete();
+        \DB::table($this->table)->where('area_id',$areaId)->delete();
     }
 }

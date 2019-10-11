@@ -21,7 +21,7 @@ class placesController extends Controller
     }
 
     //id 県コード
-    public function savePlaceList($areaId,$objectiveId){
+    public function savePlaceList($areaId){
         $placelist = new Placelist();
         $placekeyword = new Placekeyword();
 
@@ -40,8 +40,9 @@ class placesController extends Controller
             for($j=0;$j<count($res);$j++){
                 array_push($insData ,
                     ["name"=>$res[$j]->name ,
-                    "object_id"=>$items[$i]->objective_id,
-                    "address"=>$res[$j]->formatted_address]);
+                    "objective_id"=>$items[$i]->objective_id,
+                    "address"=>$res[$j]->formatted_address,
+                    "area_id"=>$areaId]);
             }
             //データベースに目的地候補リストを登録
             $placelist->savelist($insData);
