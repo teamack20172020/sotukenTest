@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Objective;
 use App\Models\Placekeyword;
 use App\Models\Placelist;
+use App\Models\Master;
 use App\Http\Service\googleApiService;
 
 /*
@@ -24,17 +25,20 @@ class placesController extends Controller
     public function savePlaceList($areaId){
         $placelist = new Placelist();
         $placekeyword = new Placekeyword();
-
+        $master = new Master();
+        $kbn = 1;
         //対象都道府県の目的地リストの削除
         $placelist->deleteByAreaId($areaId);
 
         //目的地候補リストの取得用キーワードを検索
         $items = $placekeyword->findByAreaId($areaId);
+        //県コードから県名を取得
+        $area = $master->findByKbnAndSubId($kbn,$areaId)[0]->sub_name;
         //キーワードごとに処理
         for($i=0;$i<count($items);$i++){
             //googleapiで目的地候補リストの取得
             $googleApi = new googleApiService();
-            $res = $googleApi->getPlaceList('香川県',$items[$i]->keyword);
+            $res = $googleApi->getPlaceList($area,$items[$i]->keyword);
             $insData = array();
             //目的地候補ごとに処理
             for($j=0;$j<count($res);$j++){
