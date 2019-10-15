@@ -14,7 +14,8 @@ class googleApiService extends apiService
 			'query' => $keyword,
 			'language' => "ja",
 		];
-		return $this->post($baseUrl,$param);
+		$key = 'AIzaSyCSaGHq03_pZW5_xZEXeiJ-zTfxY2AAo7M';
+		return $this->post($baseUrl,$param,$key);
 	}
 	
 	public function getDirectionList($origin,$destination,$mode,$departure_time){
@@ -27,12 +28,12 @@ class googleApiService extends apiService
 			//'traffic_model' => 'pessimistic',
 			'language' => "ja",
 		];
+		$key = 'AIzaSyBCH09CchIgy75iIvVbUqDMQPv8M1SZdC0';
 		return $this->post($baseUrl,$param);
 	}
 	
-    private function post($baseUrl,$param){
+    private function post($baseUrl,$param,$key){
 		$type = true;
-		$key = 'AIzaSyBCH09CchIgy75iIvVbUqDMQPv8M1SZdC0';
 		parent::__construct($baseUrl,$key,$type,$param);
 		$list = json_decode($this->requestApi());
 		$this->placelist = $list->results;
