@@ -1,35 +1,54 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
-use Illuminate\Http\Request;
-use App\Models\Objective;
+use Illuminate\Console\Command;
 use App\Models\Placekeyword;
 use App\Models\Placelist;
 use App\Models\Master;
 use App\Http\Service\googleApiService;
 
-/*
- *　目的と目的地に関する操作
- *
-*/
-class placesController extends Controller
+class SavePlaceList extends Command
 {
-    public function getObjectiveList(){
-        $objective = new Objective();
-        $items = $objective->getAll();
-        return $items;
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:savePlaceList';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'savePlaceList';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
     }
 
-    //id 県コード
-    public function savePlaceList($areaId){
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        $areaId=37;
+        //id 県コード
         $placelist = new Placelist();
         $placekeyword = new Placekeyword();
         $master = new Master();
         $kbn = 1;
         //対象都道府県の目的地リストの削除
         $placelist->deleteByAreaId($areaId);
-
         //目的地候補リストの取得用キーワードを検索
         $items = $placekeyword->findByAreaId($areaId);
         //県コードから県名を取得
@@ -51,7 +70,5 @@ class placesController extends Controller
             //データベースに目的地候補リストを登録
             $placelist->savelist($insData);
         }
-        return $insData;
     }
-
 }

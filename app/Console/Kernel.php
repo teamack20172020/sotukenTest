@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        //savePlaceListを毎月1回実行する
+        $schedule->command('command:savePlaceList')->monthly();
     }
 
     /**
