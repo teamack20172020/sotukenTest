@@ -23,8 +23,8 @@ class googleApiService extends apiService
 			'origin' => $origin,
 			'destination' => $destination,
 			'mode ' => $mode,
-			'departure_time' => $departure_time,
-			'traffic_model' => 'pessimistic',
+			//'departure_time' => $departure_time,
+			//'traffic_model' => 'pessimistic',
 			'language' => "ja",
 		];
 		return $this->post($baseUrl,$param);

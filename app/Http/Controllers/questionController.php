@@ -7,7 +7,7 @@ use App\Models\Question;
 use App\Models\Questionanalyze;
 
 /*
- *　質問に応じて目的を取得する処理
+ *　質問に関する操作
  * 
 */
 class questionController extends Controller

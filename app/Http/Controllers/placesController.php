@@ -9,7 +9,7 @@ use App\Models\Placelist;
 use App\Http\Service\googleApiService;
 
 /*
- *　質問に応じて目的を取得する処理
+ *　目的と目的地に関する操作
  *
 */
 class placesController extends Controller
