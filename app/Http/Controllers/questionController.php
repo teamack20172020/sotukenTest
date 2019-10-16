@@ -13,13 +13,15 @@ use App\Models\Questionanalyze;
 class questionController extends Controller
 {
     //
-    public function getQuestionList(){	
+    public function getQuestionList() :object
+    {
         $question = new Question();
         $items = $question->getAll();
         return $items;
     }
 
-    public function saveQuestionAnalyze($objectiveId,$answer){
+    public function saveQuestionAnalyze($objectiveId,$answer) :void
+    {
         $questionanalyze = new Questionanalyze();
         $maxId = $questionanalyze->getMaxAnswerId() + 1;
         $answerList = explode("q",$answer);
