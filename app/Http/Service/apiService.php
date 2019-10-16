@@ -29,19 +29,17 @@ class apiService {
 	}
 
 
-    public function requestApi()
-    {
+	public function requestApi() :string
+	{
         $fileType = "json";
         $query = http_build_query($this->requestparam);
         $url   = $this->baseUrl.$fileType.'?'.$query;
-
         // fire
         $curl = curl_init($url);
         $options = [
           CURLOPT_HTTPGET => $this->type,//GET
           CURLOPT_RETURNTRANSFER => true // fetch datum as strings
         ];
-
         curl_setopt_array($curl, $options);
         $response = curl_exec($curl);
 		$result = array();

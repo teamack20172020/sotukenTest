@@ -8,12 +8,14 @@ class Placekeyword extends Model
 {
     protected $table = 'placekeyword';
     //県コード別に取得
-    public function findByAreaId($areaId){	
+    public function findByAreaId($areaId) :object
+    {
         $items = \DB::table($this->table)->where('area_id',$areaId)->get();
         return $items;
     }
 
-    public function saveList($dataList){
+    public function saveList($dataList) :void
+    {
         \DB::table($this->table)->insert($dataList);
     }
 }
