@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 //目的リストの取得
-Route::get('/objective/getList', 'placesController@getObjectiveList');
+Route::get('/objective/getList', 'objectiveController@getObjectiveList');
 //質問リストの取得 引数：
 Route::get('/question/getList', 'questionController@getQuestionList');
 //質問回答パラメタの保存
