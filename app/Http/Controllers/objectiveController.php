@@ -11,10 +11,10 @@ use App\Models\Objective;
 */
 class objectiveController extends Controller
 {
-    public function getObjectiveList(){
+    public function getObjectiveList() :object
+    {
         $objective = new Objective();
         $items = $objective->getAll();
         return $items;
     }
-
 }
