@@ -22,7 +22,5 @@ Route::get('/question/getList', 'questionController@getQuestionList');
 //質問回答パラメタの保存
 Route::get('/questionparam/save/{objectiveId}/{answer}', 'questionController@saveQuestionAnalyze');
 //旅行プランの作成
-Route::get('/travelplan/create/{objectiveId}/{areaId}', 'travelplanController@createTravelPlan');
-
-
+Route::get('/travelplan/create/{spoint_name}/{spint}/{objectiveId}/{areaId}', 'travelplanController@getTravelPlan');
 
