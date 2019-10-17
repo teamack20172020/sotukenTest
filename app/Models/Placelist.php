@@ -10,7 +10,7 @@ class Placelist extends Model
     //県コード・目的別に取得
     public function findByAreaIdAndObjectId($objectId,$areaId) :object
     {
-        $items = \DB::table($this->table)->where('object_id',$objectId)->andwhere('area_id',$areaId)->get();
+        $items = \DB::table($this->table)->where('objective_id',$objectId)->where('area_id',$areaId)->get();
         return $items;
     }
 
