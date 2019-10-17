@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class googleApiService extends apiService
 {
-
 	public function getPlaceList($area,$objective) :array
 	{
         $keyword = $area . "　" . $objective;
@@ -17,7 +16,6 @@ class googleApiService extends apiService
 		];
 		$key = 'AIzaSyCSaGHq03_pZW5_xZEXeiJ-zTfxY2AAo7M';
 		return (array) $this->post($baseUrl,$param,$key)->results;
-
 	}
 	
 	public function getDirectionList($origin,$destination) :array
@@ -32,7 +30,7 @@ class googleApiService extends apiService
 			'language' => "ja",
 		];
 		$key = 'AIzaSyBezdwuYFibJdo7TIjPJb_dbyq7Wi-vhfg';
-		return (array) $this->post($baseUrl,$param,$key)->routes[0]->legs[0];
+		return (array) $this->post($baseUrl,$param,$key)->routes;
 	}
 	
 	private function post($baseUrl,$param,$key) :object
