@@ -35,6 +35,7 @@ class travelplanController extends Controller
             $tolist = $this->getPlace($list);
             $to = $tolist->address;
             $to_name = $tolist->name;
+            
             //旅程を一行セットする
             $pushData = $this->setRow($from,$from_name,$to,$to_name);
             if(is_Null($pushData) || count($pushData)==0){
@@ -69,11 +70,23 @@ class travelplanController extends Controller
         if(is_Null($res) || count($res)==0){
             $row = Array();
         }else{
+            $spoint = [
+                'address'=>$res[0]->legs[0]->start_address,
+                'name'=>$from_name,
+                'lat'=>$res[0]->legs[0]->start_location->lat,
+                'lng'=>$res[0]->legs[0]->start_location->lng,
+            ];
+
+            $epoint = [
+                'address' => $res[0]->legs[0]->end_address,
+                'name' => $to_name,
+                'lat' =>$res[0]->legs[0]->end_location->lat,
+                'lng' =>$res[0]->legs[0]->end_location->lng,
+            ];
+
             $row = array(
-                'startName'=>$from_name,
-                'endName'=>$to_name,
-                'startAddress'=>$res[0]->legs[0]->start_address,
-                'endAddress'=>$res[0]->legs[0]->end_address,
+                'startPoint'=>$spoint,
+                'endPoint'=>$epoint,
                 'time_ja'=>$res[0]->legs[0]->duration->text,
                 'time_second'=>$res[0]->legs[0]->duration->value,
             );
