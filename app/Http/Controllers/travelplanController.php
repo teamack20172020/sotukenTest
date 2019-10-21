@@ -23,23 +23,25 @@ class travelplanController extends Controller
 
         $insData = array();      
         for($i=0;$i<3;$i++){
-            if(count($list)==0){
-                break;
-            }
-            //行先を決定する
-            $tolist = $this->getPlace($list);
-            $to = $tolist->address;
-            $to_name = $tolist->name;
-            
-            //旅程を一行セットする
-            $pushData = $this->setRow($from,$from_name,$to,$to_name);
-            if(is_Null($pushData) || count($pushData)==0){
-                $i--;
-            }else{
-                array_push($insData,$pushData);
-                //toをfromに入れる
-                $from = $to;
-                $from_name = $to_name;
+            while(true){
+                if(count($list)==0){
+                    break;
+                }
+                
+                //行先を決定する
+                $tolist = $this->getPlace($list);
+                $to = $tolist->address;
+                $to_name = $tolist->name;
+                
+                //旅程を一行セットする
+                $pushData = $this->setRow($from,$from_name,$to,$to_name);
+                if(!(is_Null($pushData) || count($pushData)==0)){
+                    array_push($insData,$pushData);
+                    //toをfromに入れる
+                    $from = $to;
+                    $from_name = $to_name;
+                    break;
+                }
             }
         }
 
