@@ -12,13 +12,8 @@ use App\Http\Service\googleApiService;
 */
 class travelplanController extends Controller
 {
-    //35.8592065,139.7665079
-    //public function createTravelPlan($spoint_name,$spint,$objectId,$areaId){
-    public function getTravelPlan($objectId,$areaId){
+    public function createTravelPlan($spoint_name,$spint,$objectId,$areaId){
         $maxTime = 7 * 60 * 60;
-        $spoint = '34.35068,134.046928';
-        $spoint_name = "現在地";       
-
         $placelist = new Placelist();
         $list = $placelist->findByAreaIdAndObjectId($objectId,$areaId);
         
