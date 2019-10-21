@@ -12,7 +12,7 @@ use App\Http\Service\googleApiService;
 */
 class travelplanController extends Controller
 {
-    public function createTravelPlan($spoint_name,$spint,$objectId,$areaId){
+    public function getTravelPlan($spoint_name,$spint,$objectId,$areaId){
         $maxTime = 7 * 60 * 60;
         $placelist = new Placelist();
         $list = $placelist->findByAreaIdAndObjectId($objectId,$areaId);
