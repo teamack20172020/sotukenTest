@@ -11,7 +11,7 @@ use App\Models\Objective;
 */
 class objectiveController extends Controller
 {
-    public function getObjectiveList() :object
+    public function getObjectiveList() :array
     {
         $objective = new Objective();
         $items = $objective->getAll();
