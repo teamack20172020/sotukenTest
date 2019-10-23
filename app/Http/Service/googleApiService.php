@@ -8,7 +8,7 @@ class googleApiService extends apiService
 {
 	public function getPlaceList($area,$objective) :array
 	{
-        $keyword = $area . "　" . $objective;
+        $keyword = $area . "&&" . $objective;
 		$baseUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/';
 		$param    = [
 			'query' => $keyword,
