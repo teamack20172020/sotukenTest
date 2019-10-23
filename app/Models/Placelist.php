@@ -8,9 +8,9 @@ class Placelist extends Model
 {
     protected $table = 'placelist';
     //県コード・目的別に取得
-    public function findByAreaIdAndObjectId($objectId,$areaId) :object
+    public function findByAreaIdAndObjectId($objectId,$areaId) :array
     {
-        $items = \DB::table($this->table)->where('objective_id',$objectId)->where('area_id',$areaId)->get();
+        $items = \DB::table($this->table)->where('objective_id',$objectId)->where('area_id',$areaId)->get()->toArray();
         return $items;
     }
 
