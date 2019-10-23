@@ -57,10 +57,11 @@ class travelplanController extends Controller
         $rnd = mt_rand(0,$max);
         $res = $list[$rnd];
         unset($list[$rnd]);
+        $list = array_values($list);
         return $res;
     }
 
-    public function  setRow($from,$from_name,$to,$to_name) :array
+    public function setRow($from,$from_name,$to,$to_name) :array
     {
         $googleApi = new googleApiService();
         $res = $googleApi->getDirectionList($from,$to);
