@@ -13,7 +13,7 @@ use App\Models\Questionanalyze;
 class questionController extends Controller
 {
     //
-    public function getQuestionList() :object
+    public function getQuestionList() :array
     {
         $question = new Question();
         $items = $question->getAll();
