@@ -20,6 +20,14 @@ class questionController extends Controller
         return $items;
     }
 
+    public function getQuestionRes($answer) :array
+    {
+        $answerList = explode("q",$answer);
+        $questionpoint = new Questionpoint();
+        $items = $questionpoint->getAnswerRes($answerList);
+        return $items;
+    }
+
     public function saveQuestionAnalyze($objectiveId,$answer) :void
     {
         $questionanalyze = new Questionanalyze();
