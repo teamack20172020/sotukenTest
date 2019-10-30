@@ -6,19 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Placelist;
 use App\Http\Service\googleApiService;
 
-//　旅行プランに関する操作
+/*
+ *　旅行プランに関する操作
+ * 
+*/
 class travelplanController extends Controller
 {
-    /**
-	 * 目的: 旅行プランの生成
-	 * @param String $spoint_name 出発地名
-	 * @param String $spoint 出発地座標
-	 * @param String $objectId 目的ID
-	 * @param String $areaId 地域ID
-	 *
-	 **/
-    public function getTravelPlan($spoint_name,$spoint,$objectId,$areaId) :array
-    {
+    public function getTravelPlan($spoint_name,$spoint,$objectId,$areaId){
         $maxTime = 7 * 60 * 60;
         $placelist = new Placelist();
         $list = $placelist->findByAreaIdAndObjectId($objectId,$areaId);
@@ -58,13 +52,7 @@ class travelplanController extends Controller
         return $insData;
     }
 
-    /**
-	 * 目的: 目的地をランダムに取得
-	 * @param array $list 目的地リスト
-	 *
-	 **/
-    public function getPlace(&$list) :array
-    {
+    public function getPlace(&$list){
         $max = count($list)-1;
         $rnd = mt_rand(0,$max);
         $res = $list[$rnd];
@@ -73,14 +61,6 @@ class travelplanController extends Controller
         return $res;
     }
 
-    /**
-	 * 目的: 経路を取得し、プランを退避する
-	 * @param String $from 出発地住所
-     * @param String $from_name　出発地名
-     * @param String $to　目的地住所
-     * @param String $to_name　目的地名
-	 *
-	 **/
     public function setRow($from,$from_name,$to,$to_name) :array
     {
         $googleApi = new googleApiService();
