@@ -4,10 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+//　マスターテーブルへの操作
 class Master extends Model
 {
+    // テーブル名
     protected $table = 'master';
-    //kbnとsub_Idに一致するmasterのデータ取得
+ 
+    /**
+     * 目的: マスタデータを取得
+     * 引数: kbn　メイン区分
+     *       sub_Id サブ区分
+     **/
     public function findByKbnAndSubId($kbn,$sub_Id) :array
     {
         $items = \DB::table($this->table)->where('kbn',$kbn)->where('sub_id',$sub_Id)->get()->toArray();
