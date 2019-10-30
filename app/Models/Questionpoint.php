@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// 質問ポイントテーブルへの操作
 class Questionpoint extends Model
 {
     //
     protected $table = 'questionpoint';
 
-    //質問の回答に応じておすすめの目的を上位三件返す
+    /**
+     * 目的: 質問の回答結果によっておすすめの目的を上位３件を取得
+     * 引数: answerList 回答結果
+     **/
     public function getAnswerRes($answerList) :array
     {
         $items = \DB::table($this->table)
