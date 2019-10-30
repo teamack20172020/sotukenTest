@@ -12,7 +12,7 @@ class Questionanalyze extends Model
 
     /**
      * 目的: 回答IDの最大値を取得
-     * 引数: なし
+     * 
      **/
     public function getMaxAnswerId() :int
     {
@@ -21,7 +21,7 @@ class Questionanalyze extends Model
     
     /**
      * 目的: 回答結果の保存
-     * 引数: dataList 回答結果
+     * @param array $dataList 回答結果
      **/
     public function saveList($dataList) :void
     {

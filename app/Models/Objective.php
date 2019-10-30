@@ -12,7 +12,7 @@ class Objective extends Model
 
     /**
      * 目的: 目的リストを取得
-     * 引数: なし
+     * 
      **/
     public function getAll() :array
     {

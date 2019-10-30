@@ -12,8 +12,9 @@ class Placelist extends Model
 
     /**
      * 目的: 目的地リストを県コード・目的別に取得
-     * 引数: objectId　目的ID
-     * 　　　areaId　地域ID
+     * @param int $objectId　目的ID
+     * @param int $areaId　地域ID
+     * 
      **/
     public function findByAreaIdAndObjectId($objectId,$areaId) :array
     {
@@ -23,7 +24,7 @@ class Placelist extends Model
 
     /**
      * 目的: 目的地リストを保存
-     * 引数: dataList　目的地リスト
+     * @param array $dataList　目的地リスト
      **/
     public function saveList($dataList) :void
     {
@@ -32,7 +33,7 @@ class Placelist extends Model
 
     /**
      * 目的: 目的地リストを地域ID別に削除
-     * 引数: areaId　地域ID
+     * @param int $areaId　地域ID
      **/
     public function deleteByAreaId($areaId) :void
     {

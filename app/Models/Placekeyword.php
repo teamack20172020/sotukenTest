@@ -12,7 +12,8 @@ class Placekeyword extends Model
     
     /**
      * 目的: 目的地リスト検索用キーワードリストを取得
-     * 引数: areaId　地域ID
+     * @param int $areaId　地域ID
+     * 
      **/
     public function findByAreaId($areaId) :array
     {

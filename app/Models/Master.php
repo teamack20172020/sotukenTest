@@ -12,8 +12,9 @@ class Master extends Model
  
     /**
      * 目的: マスタデータを取得
-     * 引数: kbn　メイン区分
-     *       sub_Id サブ区分
+     * @param int $kbn　メイン区分
+     * @param int $sub_Id サブ区分
+     * 
      **/
     public function findByKbnAndSubId($kbn,$sub_Id) :array
     {

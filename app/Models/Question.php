@@ -12,7 +12,7 @@ class Question extends Model
 
     /**
      * 目的: 質問リストの取得
-     * 引数: なし
+     * 
      **/
     public function getAll() :array
     {
