@@ -9,6 +9,7 @@ class Questionpoint extends Model
     //
     protected $table = 'questionpoint';
 
+    //質問の回答に応じておすすめの目的を上位三件返す
     public function getAnswerRes($answerList) :array
     {
         $items = \DB::table($this->table)
@@ -27,7 +28,6 @@ class Questionpoint extends Model
             ->latest('sum_point')
             ->limit(3)
             ->get();
-            
         return $items;
     }
 }
