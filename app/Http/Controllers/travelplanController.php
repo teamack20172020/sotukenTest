@@ -63,7 +63,7 @@ class travelplanController extends Controller
 	 * @param array $list 目的地リスト
 	 *
 	 **/
-    public function getPlace(&$list) :array
+    public function getPlace(&$list) :object
     {
         $max = count($list)-1;
         $rnd = mt_rand(0,$max);
