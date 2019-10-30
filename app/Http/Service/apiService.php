@@ -3,6 +3,7 @@ namespace App\Http\Service;
 
 use Illuminate\Http\Request;
 
+// Api操作の共通処理
 class apiService {
 
 	//APIURL
@@ -14,21 +15,24 @@ class apiService {
 	//リクエストパラメター(形式：['key'=>value])
 	protected  $requestparam;
 
-	/*
-	 * コンストラクタ
-	 * @parm $url APIのURL
-	 * @parm $key APIのKEY
-	 * @parm $type 通信タイプ（GET:true POST:false）
-	 * @parm $requestparam リクエストパラメター(形式：['key'=>value])
+	/**
+	 * 目的: コンストラクタ
+	 * @param String $url APIのURL
+	 * @param String $key APIのKEY
+	 * @param boolean $type 通信タイプ（GET:true POST:false）
+	 * @param $requestparam リクエストパラメター(形式：['key'=>value])
 	 *
-	*/
+	 **/
 	public function __construct($url = "",$key = "",$type = false,$requestparam = []){
 		$this->baseUrl = $url;
 		$this->type = $type;
 		$this->requestparam = array_merge($requestparam,array('key'=> $key));
 	}
 
-
+	/**
+	 * 目的: APIへrequestを実行する
+	 *
+	 **/
 	public function requestApi() :string
 	{
         $fileType = "json";
