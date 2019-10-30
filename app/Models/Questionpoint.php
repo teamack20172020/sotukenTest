@@ -12,7 +12,7 @@ class Questionpoint extends Model
 
     /**
      * 目的: 質問の回答結果によっておすすめの目的を上位３件を取得
-     * 引数: answerList 回答結果
+     * @param　array $answerList 回答結果
      **/
     public function getAnswerRes($answerList) :array
     {
@@ -31,7 +31,7 @@ class Questionpoint extends Model
             ->groupBy('objective_id')
             ->latest('sum_point')
             ->limit(3)
-            ->get();
+            ->get()->toArray();
         return $items;
     }
 }
