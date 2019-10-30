@@ -4,8 +4,15 @@ namespace App\Http\Service;
 
 use Illuminate\Http\Request;
 
+// GoogleAppiへの操作
 class googleApiService extends apiService
 {
+	/**
+	 * 目的: GooglePlaceAPIを利用して目的地リストを取得
+	 * @param String $area 地域ID
+	 * @param String $objective 目的ID
+	 *
+	 **/
 	public function getPlaceList($area,$objective) :array
 	{
         $keyword = $area . "&&" . $objective;
@@ -18,6 +25,12 @@ class googleApiService extends apiService
 		return (array) $this->post($baseUrl,$param,$key)->results;
 	}
 	
+	/**
+	 * 目的: GoogleDirectionAPIを利用してルートを取得
+	 * @param String $origin 出発地
+	 * @param String $destination 目的地
+	 *
+	 **/
 	public function getDirectionList($origin,$destination) :array
 	{
 		$baseUrl = 'https://maps.googleapis.com/maps/api/directions/';
@@ -33,6 +46,13 @@ class googleApiService extends apiService
 		return (array) $this->post($baseUrl,$param,$key)->routes;
 	}
 	
+	/**
+	 * 目的: GoogleAPIへリクエストの送信
+	 * @param String $baseUrl APIのURL
+	 * @param String $param APIのリクエストパラメタ
+	 * @param key $param APIKEY
+	 *
+	 **/
 	private function post($baseUrl,$param,$key) :object
 	{
 		$type = true;
