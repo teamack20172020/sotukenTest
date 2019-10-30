@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 // 目的地リストテーブルへの操作
 class Placelist extends Model
 {
+    // テーブル名
     protected $table = 'placelist';
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 //　目的地リスト検索用キーワードテーブルへの操作
 class Placekeyword extends Model
 {
+    // テーブル名
     protected $table = 'placekeyword';
     
     /**

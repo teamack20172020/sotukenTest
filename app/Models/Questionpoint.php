@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 // 質問ポイントテーブルへの操作
 class Questionpoint extends Model
 {
-    //
+    // テーブル名
     protected $table = 'questionpoint';
 
     /**
