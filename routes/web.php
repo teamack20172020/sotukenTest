@@ -47,5 +47,5 @@ Route::get('/answer-objective/getList/{answer}', 'questionController@getQuestion
  *       objectiveId　目的ID
  *       areaId　地域ID
  **/
-Route::get('/travelplan/create/{spoint_name}/{spoint}/{objectiveId}/{areaId}', 'travelplanController@getTravelPlan');
+Route::get('/travelplan/create/{spoint_name}/{spoint}/{main_objectiveId}/{sub_objectiveId}/{areaId}', 'travelplanController@getTravelPlan');
 

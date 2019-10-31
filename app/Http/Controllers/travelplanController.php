@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Objective;
 use App\Models\Placelist;
 use App\Http\Service\googleApiService;
 
@@ -13,27 +14,42 @@ class travelplanController extends Controller
 	 * 目的: 旅行プランの生成
 	 * @param String $spoint_name 出発地名
 	 * @param String $spoint 出発地座標
-	 * @param String $objectId 目的ID
+	 * @param String $main_objectiveId メイン目的ID
+     * @param String $sub_objectiveId サブ目的ID
 	 * @param String $areaId 地域ID
 	 *
 	 **/
-    public function getTravelPlan($spoint_name,$spoint,$objectId,$areaId) :array
+    public function getTravelPlan($spoint_name,$spoint,$main_objectiveId,$sub_objectiveId,$areaId) :array
     {
         $maxTime = 7 * 60 * 60;
+        $objective = new Objective();
         $placelist = new Placelist();
-        $list = $placelist->findByAreaIdAndObjectId($objectId,$areaId);
-        
+        $main_obj = $objective->getById($main_objectiveId);
+        $sub_obj = $objective->getById($sub_objectiveId);
+        $main_place = $placelist->findByAreaIdAndObjectId($main_objectiveId,$areaId);
+        $sub_place = $placelist->findByAreaIdAndObjectId($sub_objectiveId,$areaId);
 
         $from = $spoint;
         $from_name = $spoint_name;
-
-        $insData = array();      
-        for($i=0;$i<3;$i++){
+        
+        $count = 0;
+        $insData = array();
+        for($i=0;$i<5;$i++){
             while(true){
-                if(count($list)==0){
+                // @TODO 最大滞在時間を超過した場合を後で考慮する必要がある
+                if(count($main_place)==0 && count($sub_place)==0){
                     break;
                 }
                 
+                if($i%2==0 && $main_obj[0]->maxcount > $count){
+                    $count++;
+                    $obj = $main_obj;
+                    $list = &$main_place;
+                }else{
+                    $obj = $sub_obj;
+                    $list = &$sub_place;
+                }
+
                 //行先を決定する
                 $tolist = $this->getPlace($list);
                 $to = $tolist->address;
@@ -41,6 +57,14 @@ class travelplanController extends Controller
                 
                 //旅程を一行セットする
                 $pushData = $this->setRow($from,$from_name,$to,$to_name);
+                /*
+                if($i!=0){
+                    $time = $maxTime 
+                        - intval($pushData->time_second) 
+                        + intval($obj[0]->maxsecond);
+                }
+                */
+
                 if(!(is_Null($pushData) || count($pushData)==0)){
                     array_push($insData,$pushData);
                     //toをfromに入れる
@@ -56,6 +80,7 @@ class travelplanController extends Controller
         $to_name = $spoint_name;
         array_push($insData,$this->setRow($from,$from_name,$to,$to_name));
         return $insData;
+        
     }
 
     /**

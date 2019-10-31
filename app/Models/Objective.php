@@ -19,4 +19,15 @@ class Objective extends Model
         $items = \DB::table($this->table)->get()->toArray();
         return $items;
     }
+        
+    /**
+     * 目的: 目的リストをIDをもとに取得
+     * @param int $id　目的ID
+     * 
+     **/
+    public function getById($id) :array
+    {
+        $items = \DB::table($this->table)->where('id',$id)->get()->toArray();
+        return $items;
+    }
 }
