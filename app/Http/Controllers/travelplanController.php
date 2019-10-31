@@ -37,17 +37,20 @@ class travelplanController extends Controller
         for($i=0;$i<5;$i++){
             while(true){
                 // @TODO 最大滞在時間を超過した場合を後で考慮する必要がある
-                if(count($main_place)==0 && count($sub_place)==0){
+                if(($main_obj[0]->maxcount <= $count || count($main_place)==0) 
+                    && (count($sub_place)==0 || $main_objectiveId==$sub_objectiveId)){
                     break;
                 }
                 
-                if($i%2==0 && $main_obj[0]->maxcount > $count){
+                if($i%2==0 && $main_obj[0]->maxcount > $count && count($main_place)!=0){
                     $count++;
                     $obj = $main_obj;
                     $list = &$main_place;
                 }else{
-                    $obj = $sub_obj;
-                    $list = &$sub_place;
+                    if($main_objectiveId!=$sub_objectiveId){
+                        $obj = $sub_obj;
+                        $list = &$sub_place;
+                    }
                 }
 
                 //行先を決定する
