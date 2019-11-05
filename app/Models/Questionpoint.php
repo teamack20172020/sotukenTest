@@ -17,13 +17,16 @@ class Questionpoint extends Model
     public function getAnswerRes($answerList) :array
     {
         $items = \DB::table($this->table)
-            ->select(\DB::raw('objective_id , sum(point) as sum_point'))
+            ->select(\DB::raw('objective_id , sum(point * master.int_field01)  as sum_point'))
+            ->join('master', function ($join) {
+                $join->on($this->table . '.objective_id', '=', 'master.sub_id')
+                     ->where('master.kbn', '=', 2);
+            })
             ->where(function ($query) use($answerList){
                 for($i=0;$i<count($answerList);$i++){
                     $question_id = intval(substr($answerList[$i],0,4));
                 	$answerFlg = intval(substr($answerList[$i],-1,1));
                     $query->orWhere(function ($query_sub)  use($question_id,$answerFlg){
-
                         $query_sub->where('question_id', $question_id)->where('answerfig', $answerFlg);
                     });
                 }
