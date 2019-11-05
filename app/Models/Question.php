@@ -16,7 +16,7 @@ class Question extends Model
      **/
     public function getAll() :array
     {
-        $items = \DB::table($this->table)->get()->toArray();
+        $items = \DB::table($this->table)->where('delflg',false)->get()->toArray();
         return $items;
     }
 }
