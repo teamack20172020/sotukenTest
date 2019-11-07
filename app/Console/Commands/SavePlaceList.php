@@ -61,11 +61,14 @@ class SavePlaceList extends Command
             $insData = array();
             //目的地候補ごとに処理
             for($j=0;$j<count($res);$j++){
+                $detailInfo =  $googleApi->getPlaceDetail($res[$j]->formatted_address);
                 array_push($insData ,
                     ["name"=>$res[$j]->name ,
                     "objective_id"=>$items[$i]->objective_id,
                     "address"=>$res[$j]->formatted_address,
-                    "area_id"=>$areaId]);
+                    "area_id"=>$areaId,
+                    "tell_number"=>$detailInfo->number
+                    ]);
             }
             //データベースに目的地候補リストを登録
             $placelist->savelist($insData);

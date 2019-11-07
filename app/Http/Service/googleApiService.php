@@ -24,6 +24,24 @@ class googleApiService extends apiService
 		$key = 'AIzaSyCSaGHq03_pZW5_xZEXeiJ-zTfxY2AAo7M';
 		return (array) $this->post($baseUrl,$param,$key)->results;
 	}
+
+	/**
+	 * 目的: GooglePlaceAPIを利用して施設詳細情報を取得
+	 * @param String $area 地域ID
+	 * @param String $objective 目的ID
+	 *
+	 **/
+	public function getPlaceDetail($referenceId) :array
+	{
+		$baseUrl = 'https://maps.googleapis.com/maps/api/place/details/';
+		$param    = [
+			'reference' => $referenceId,
+			'language' => "ja",
+		];
+		$key = 'AIzaSyCSaGHq03_pZW5_xZEXeiJ-zTfxY2AAo7M';
+		
+		return (array) $this->post($baseUrl,$param,$key)->results;
+	}
 	
 	/**
 	 * 目的: GoogleDirectionAPIを利用してルートを取得
