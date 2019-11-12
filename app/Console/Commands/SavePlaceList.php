@@ -57,17 +57,31 @@ class SavePlaceList extends Command
         for($i=0;$i<count($items);$i++){
             //googleapiで目的地候補リストの取得
             $googleApi = new googleApiService();
-            $res = $googleApi->getPlaceList($area,$items[$i]->keyword);
+            $res = $googleApi->getPlaceList($area,$items[$i]->keyword);//"松島公園 公園");//
             $insData = array();
             //目的地候補ごとに処理
             for($j=0;$j<count($res);$j++){
-                $detailInfo =  $googleApi->getPlaceDetail($res[$j]->formatted_address);
+                $detailInfo =  $googleApi->getPlaceDetail($res[$j]->place_id);
+
+                if(isset($detailInfo['formatted_phone_number'])){
+                    $phone_number = $detailInfo['formatted_phone_number'];
+                }else{
+                    $phone_number = "";
+                }
+
+                if(isset($detailInfo['website'])){
+                    $site_url = $detailInfo['website'];
+                }else{
+                    $site_url = $detailInfo['url'];
+                }
+
                 array_push($insData ,
                     ["name"=>$res[$j]->name ,
                     "objective_id"=>$items[$i]->objective_id,
                     "address"=>$res[$j]->formatted_address,
                     "area_id"=>$areaId,
-                    "tell_number"=>$detailInfo->number
+                    "phone_number"=>$phone_number,
+                    "site_url"=>$site_url,
                     ]);
             }
             //データベースに目的地候補リストを登録

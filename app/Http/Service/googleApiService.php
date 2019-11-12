@@ -27,20 +27,19 @@ class googleApiService extends apiService
 
 	/**
 	 * 目的: GooglePlaceAPIを利用して施設詳細情報を取得
-	 * @param String $area 地域ID
-	 * @param String $objective 目的ID
+	 * @param String $placeId 場所ID
 	 *
 	 **/
-	public function getPlaceDetail($referenceId) :array
+	public function getPlaceDetail($placeId) :array
 	{
 		$baseUrl = 'https://maps.googleapis.com/maps/api/place/details/';
 		$param    = [
-			'reference' => $referenceId,
+			'place_id' => $placeId,
 			'language' => "ja",
 		];
 		$key = 'AIzaSyCSaGHq03_pZW5_xZEXeiJ-zTfxY2AAo7M';
 		
-		return (array) $this->post($baseUrl,$param,$key)->results;
+		return (array) $this->post($baseUrl,$param,$key)->result;
 	}
 	
 	/**
