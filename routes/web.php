@@ -44,8 +44,9 @@ Route::get('/answer-objective/getList/{answer}', 'questionController@getQuestion
  * 目的: 旅行プランの作成
  * 引数: spoint_name 出発地名
  *       spoint　出発地座標（緯度,経度）
- *       objectiveId　目的ID
+ *       main_objectiveId　メイン目的ID
+ *       sub_objectiveId   サブ目的ID
  *       areaId　地域ID
  **/
-Route::get('/travelplan/create/{spoint_name}/{spoint}/{objectiveId}/{areaId}', 'travelplanController@getTravelPlan');
+Route::get('/travelplan/create/{spoint_name}/{spoint}/{main_objectiveId}/{sub_objectiveId}/{areaId}', 'travelplanController@getTravelPlan');
 
