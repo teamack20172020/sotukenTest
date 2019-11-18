@@ -55,4 +55,14 @@ class Placelist extends Model
     {
         \DB::table($this->table)->where('area_id',$areaId)->delete();
     }
+
+    /**
+     * 目的: 目的地リストから目的地域と違うデータを削除
+     * @param String $area 地域名
+     * @param int $areaId 地域ID
+     **/
+    public function deleteByArea($area,$areaId) :void
+    {
+        \DB::table($this->table)->where('area_id',$areaId)->where('address','not like',"%{$area}%")->delete();
+    }
 }

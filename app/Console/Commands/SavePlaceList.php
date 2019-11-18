@@ -87,5 +87,7 @@ class SavePlaceList extends Command
             //データベースに目的地候補リストを登録
             $placelist->savelist($insData);
         }
+        //目的地域が違うデータを削除する処理
+        $placelist->deleteByArea($area,$areaId);
     }
 }
