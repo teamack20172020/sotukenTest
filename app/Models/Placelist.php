@@ -51,7 +51,7 @@ class Placelist extends Model
      * 目的: 目的地リストを地域ID別に削除
      * @param int $areaId　地域ID
      **/
-    public function 　($areaId) :void
+    public function deleteByAreaId($areaId) :void
     {
         \DB::table($this->table)->where('area_id',$areaId)->delete();
     }
