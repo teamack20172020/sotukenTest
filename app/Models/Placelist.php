@@ -16,9 +16,9 @@ class Placelist extends Model
      * @param int $areaId　地域ID
      * 
      **/
-    public function findByAreaIdAndMAinObjectId($mainObjectId,$areaId) :array
+    public function findByAreaIdAndMainObjectId($mainObjectId,$areaId) :array
     {
-        $items = \DB::table($this->table)->where('objective_id',$objectId)->where('area_id',$areaId)->get()->toArray();
+        $items = \DB::table($this->table)->where('objective_id',$mainObjectId)->where('area_id',$areaId)->get()->toArray();
         return $items;
     }
 
@@ -31,8 +31,8 @@ class Placelist extends Model
      **/
     public function findByAreaIdAndSubObjectId($mainObjectId,$subObjectId,$areaId) :array
     {
-        $items = \DB::table($this->table)->where('objective_id',$objectId)->where('area_id',$areaId)
-        ->whereNotIn(function ($query) use($mainObjectId){
+        $items = \DB::table($this->table)->where('objective_id',$subObjectId)->where('area_id',$areaId)
+        ->whereNotIn('name',function ($query) use($mainObjectId){
             $query->select('name')->from($this->table)->where('objective_id',$mainObjectId);
         })->get()->toArray();
         return $items;
