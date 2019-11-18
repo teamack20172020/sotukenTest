@@ -134,6 +134,8 @@ class travelplanController extends Controller
             $row = array(
                 'lat'=>$res[0]->legs[0]->end_location->lat,
                 'lng'=>$res[0]->legs[0]->end_location->lng,
+                'time_ja'=>$res[0]->legs[0]->duration->text,
+                //'time_second'=>$res[0]->legs[0]->duration->value,
             );
         }
         return $row;
