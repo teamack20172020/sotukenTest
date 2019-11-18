@@ -61,7 +61,7 @@ class Placelist extends Model
      * @param String $area 地域名
      * @param int $areaId 地域ID
      **/
-    public function deleteByArea($area,$areaId) :void
+    public function deleteByAreaIdAndArea($area,$areaId) :void
     {
         \DB::table($this->table)->where('area_id',$areaId)->where('address','not like',"%{$area}%")->delete();
     }

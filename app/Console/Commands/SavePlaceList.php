@@ -88,6 +88,6 @@ class SavePlaceList extends Command
             $placelist->savelist($insData);
         }
         //目的地域が違うデータを削除する処理
-        $placelist->deleteByArea($area,$areaId);
+        $placelist->deleteByAreaIdAndArea($area,$areaId);
     }
 }
