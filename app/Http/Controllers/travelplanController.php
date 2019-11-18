@@ -26,8 +26,8 @@ class travelplanController extends Controller
         $placelist = new Placelist();
         $main_obj = $objective->getById($main_objectiveId);
         $sub_obj = $objective->getById($sub_objectiveId);
-        $main_place = $placelist->findByAreaIdAndObjectId($main_objectiveId,$areaId);
-        $sub_place = $placelist->findByAreaIdAndObjectId($sub_objectiveId,$areaId);
+        $main_place = $placelist->findByAreaIdAndMAinObjectId($main_objectiveId,$areaId);
+        $sub_place = $placelist->findByAreaIdAndSubObjectId($main_objectiveId,$sub_objectiveId,$areaId);
 
         $from = $spoint;
         $count = 0;

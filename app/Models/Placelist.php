@@ -11,14 +11,30 @@ class Placelist extends Model
     protected $table = 'placelist';
 
     /**
-     * 目的: 目的地リストを県コード・目的別に取得
-     * @param int $objectId　目的ID
+     * 目的: 目的地リストを県コード・主目的別に取得
+     * @param int $mainObjectId　主目的ID
      * @param int $areaId　地域ID
      * 
      **/
-    public function findByAreaIdAndObjectId($objectId,$areaId) :array
+    public function findByAreaIdAndMAinObjectId($mainObjectId,$areaId) :array
     {
         $items = \DB::table($this->table)->where('objective_id',$objectId)->where('area_id',$areaId)->get()->toArray();
+        return $items;
+    }
+
+        /**
+     * 目的: 目的地リストを県コード・副目的別に取得
+     * @param int $mainObjectId　主目的ID
+     * @param int $subObjectId　副目的ID
+     * @param int $areaId　地域ID
+     * 
+     **/
+    public function findByAreaIdAndSubObjectId($mainObjectId,$subObjectId,$areaId) :array
+    {
+        $items = \DB::table($this->table)->where('objective_id',$objectId)->where('area_id',$areaId)
+        ->whereNotIn(function ($query) use($mainObjectId){
+            $query->select('name')->from($this->table)->where('objective_id',$mainObjectId);
+        })->get()->toArray();
         return $items;
     }
 
@@ -35,7 +51,7 @@ class Placelist extends Model
      * 目的: 目的地リストを地域ID別に削除
      * @param int $areaId　地域ID
      **/
-    public function deleteByAreaId($areaId) :void
+    public function 　($areaId) :void
     {
         \DB::table($this->table)->where('area_id',$areaId)->delete();
     }
