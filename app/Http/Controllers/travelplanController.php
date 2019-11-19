@@ -72,7 +72,7 @@ class travelplanController extends Controller
                 //経路が正しく取得できているかのチェック
                 if(!(empty($pushData[0]))){
                     //目的毎に設定された目的地での滞在時間を減少させる
-                    $maxTime -= intval($obj[0]->maxsecond);
+                    $maxTime -= intval($tolist->stay_second);
                     if($maxTime == 0){
                         $maxTime = -1;
                     }
