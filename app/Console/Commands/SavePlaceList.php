@@ -82,6 +82,7 @@ class SavePlaceList extends Command
                     "area_id"=>$areaId,
                     "phone_number"=>$phone_number,
                     "site_url"=>$site_url,
+                    "stay_time"=>$master->findByKbnAndSubIdList($detailInfo['types']),
                     ]);
             }
             //データベースに目的地候補リストを登録

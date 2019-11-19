@@ -21,4 +21,20 @@ class Master extends Model
         $items = \DB::table($this->table)->where('kbn',$kbn)->where('sub_id',$sub_Id)->get()->toArray();
         return $items;
     }
+
+    /**
+     * 目的: 場所タイプ別滞在時間のマスタデータを取得
+     * @param array $place_type_list 場所リスト
+     **/
+    public function findByKbnAndSubIdList($place_type_list) :array
+    {
+        $items = \DB::table($this->table)
+        ->select(\DB::raw('kbn , IFNULL(max(int_field01),5400)  as stay_time'))
+        ->where('kbn',3)
+        ->whereIn('str_field01',$place_type_list)
+        ->groupBy('kbn')
+        ->get()->toArray();
+        return $items;
+    }
+
 }
