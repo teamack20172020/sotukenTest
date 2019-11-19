@@ -79,10 +79,12 @@ class SavePlaceList extends Command
                     ["name"=>$res[$j]->name ,
                     "objective_id"=>$items[$i]->objective_id,
                     "address"=>$res[$j]->formatted_address,
+                    "lat"=>$res[$j]->geometry->location->lat,
+                    "lng"=>$res[$j]->geometry->location->lng,
+                    "stay_time"=>$master->findByKbnAndSubIdList($detailInfo['types']),
                     "area_id"=>$areaId,
                     "phone_number"=>$phone_number,
                     "site_url"=>$site_url,
-                    "stay_time"=>$master->findByKbnAndSubIdList($detailInfo['types']),
                     ]);
             }
             //データベースに目的地候補リストを登録
