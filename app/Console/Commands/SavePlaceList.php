@@ -75,13 +75,20 @@ class SavePlaceList extends Command
                     $site_url = $detailInfo['url'];
                 }
 
+                $stay_info = $master->findByKbnAndSubIdList($detailInfo['types']);
+                if(count($stay_info)>0){
+                    $stay_time = $master->findByKbnAndSubIdList($detailInfo['types'])[0]->stay_time;
+                }else{
+                    $stay_time = 5400;
+                }
+
                 array_push($insData ,
                     ["name"=>$res[$j]->name ,
                     "objective_id"=>$items[$i]->objective_id,
                     "address"=>$res[$j]->formatted_address,
                     "lat"=>$res[$j]->geometry->location->lat,
                     "lng"=>$res[$j]->geometry->location->lng,
-                    "stay_time"=>$master->findByKbnAndSubIdList($detailInfo['types']),
+                    "stay_second"=>$stay_time,
                     "area_id"=>$areaId,
                     "phone_number"=>$phone_number,
                     "site_url"=>$site_url,
