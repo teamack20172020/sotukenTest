@@ -46,11 +46,11 @@ class travelplanController extends Controller
 
             if($i%2==0 && $main_obj[0]->maxcount > $count && count($main_place)!=0){
                 $count++;
-                $obj = $main_obj;
+                //$obj = $main_obj;
                 $list = &$main_place;
             }else{
                 if($main_objectiveId!=$sub_objectiveId){
-                    $obj = $sub_obj;
+                    //$obj = $sub_obj;
                     $list = &$sub_place;
                 }
             }

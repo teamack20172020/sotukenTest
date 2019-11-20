@@ -61,20 +61,24 @@ class SavePlaceList extends Command
             $insData = array();
             //目的地候補ごとに処理
             for($j=0;$j<count($res);$j++){
+                //目的地の詳細情報を取得
                 $detailInfo =  $googleApi->getPlaceDetail($res[$j]->place_id);
 
+                //formatted_phone_number(電話番号)が設定されていなければ空白を挿入
                 if(isset($detailInfo['formatted_phone_number'])){
                     $phone_number = $detailInfo['formatted_phone_number'];
                 }else{
                     $phone_number = "";
                 }
 
+                //websiteが登録されていなければGoogleMapのurlを使用
                 if(isset($detailInfo['website'])){
                     $site_url = $detailInfo['website'];
                 }else{
                     $site_url = $detailInfo['url'];
                 }
 
+                //typeによって滞在時間を設定､typeがデータになければ固定値を設定
                 $stay_info = $master->findByKbnAndSubIdList($detailInfo['types']);
                 if(count($stay_info)>0){
                     $stay_time = $master->findByKbnAndSubIdList($detailInfo['types'])[0]->stay_time;
