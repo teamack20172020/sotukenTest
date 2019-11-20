@@ -55,8 +55,8 @@ class travelplanController extends Controller
                 }
             }
 
-            //行先が決定するまでループ
-            while(true){
+            //行先が決定するまでか目的地リストが空になるまでループ
+            while(count($tolist)>0){
                 //行先を決定する
                 $tolist = $this->getPlace($list);
                 //行き先の情報をセット
