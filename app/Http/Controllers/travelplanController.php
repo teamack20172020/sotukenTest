@@ -33,29 +33,30 @@ class travelplanController extends Controller
         $count = 0;
         $insData = array();
 
-        for($i=0;$i<9;$i++){
+        while(true){
+            // @TODO 最大滞在時間を超過した場合を後で考慮する必要がある
+            //メイン目的が最大回数､もしくはメイン目的の行き先がない場合
+            //かつサブ目的の行き先がない場合､もしくはメイン目的とサブ目的が同じ
+            //もしくは最大滞在時間がマイナスの場合
+            if((($main_obj[0]->maxcount <= $count || count($main_place)==0)
+                && (count($sub_place)==0 || $main_objectiveId==$sub_objectiveId))
+                || $maxTime < 0){
+                break;
+            }
+
+            if($i%2==0 && $main_obj[0]->maxcount > $count && count($main_place)!=0){
+                $count++;
+                $obj = $main_obj;
+                $list = &$main_place;
+            }else{
+                if($main_objectiveId!=$sub_objectiveId){
+                    $obj = $sub_obj;
+                    $list = &$sub_place;
+                }
+            }
+
+            //行先が決定するまでループ
             while(true){
-                // @TODO 最大滞在時間を超過した場合を後で考慮する必要がある
-                //メイン目的が最大回数､もしくはメイン目的の行き先がない場合
-                //かつサブ目的の行き先がない場合､もしくはメイン目的とサブ目的が同じ
-                //もしくは最大滞在時間がマイナスの場合
-                if((($main_obj[0]->maxcount <= $count || count($main_place)==0)
-                    && (count($sub_place)==0 || $main_objectiveId==$sub_objectiveId))
-                    || $maxTime < 0){
-                    break;
-                }
-
-                if($i%2==0 && $main_obj[0]->maxcount > $count && count($main_place)!=0){
-                    $count++;
-                    $obj = $main_obj;
-                    $list = &$main_place;
-                }else{
-                    if($main_objectiveId!=$sub_objectiveId){
-                        $obj = $sub_obj;
-                        $list = &$sub_place;
-                    }
-                }
-
                 //行先を決定する
                 $tolist = $this->getPlace($list);
                 //行き先の情報をセット
@@ -79,6 +80,7 @@ class travelplanController extends Controller
                     array_push($insData,$pushData);
                     //目的地(to)を出発地(from)に入れる
                     $from = $to;
+                    $i++;    
                     break;
                 }
             }
