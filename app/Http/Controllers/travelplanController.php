@@ -32,9 +32,9 @@ class travelplanController extends Controller
         $from = $spoint;
         $count = 0;
         $insData = array();
+        $plancount = 0;
 
         while(true){
-            // @TODO 最大滞在時間を超過した場合を後で考慮する必要がある
             //メイン目的が最大回数､もしくはメイン目的の行き先がない場合
             //かつサブ目的の行き先がない場合､もしくはメイン目的とサブ目的が同じ
             //もしくは最大滞在時間がマイナスの場合
@@ -44,7 +44,7 @@ class travelplanController extends Controller
                 break;
             }
 
-            if($i%2==0 && $main_obj[0]->maxcount > $count && count($main_place)!=0){
+            if($plancount%2==0 && $main_obj[0]->maxcount > $count && count($main_place)!=0){
                 $count++;
                 //$obj = $main_obj;
                 $list = &$main_place;
@@ -60,38 +60,43 @@ class travelplanController extends Controller
                 //行先を決定する
                 $tolist = $this->getPlace($list);
                 //行き先の情報をセット
-                $to = $tolist->address;
-                $pushData=array(
-                    'name'=>$tolist->name,
-                    'address'=>$to,
-                    'number'=>$tolist->phone_number,
-                    'site-url'=>$tolist->site_url,
-                );
+                $to = $tolist->lat .",". $tolist->lng;
+                //目的地への移動時間を取得
+                $time_ja = $this->setRow($from,$to,$maxTime);
+                //移動時間が正しく取得できているかのチェック
+                if($time_ja != ""){
+                    //プランを1行作成する
+                    $pushData=array(
+                        'time_ja'=>$time_ja,
+                        'name'=>$tolist->name,
+                        'address'=>$tolist->address,
+                        'number'=>$tolist->phone_number,
+                        'site-url'=>$tolist->site_url,
+                        'latlng'=>$to,
+                        'types'=>$tolist->types,
+                    );
+                    array_push($insData,$pushData);
 
-                //旅程を一行セットする
-                array_push($pushData,$this->setRow($from,$to,$maxTime));
-                //経路が正しく取得できているかのチェック
-                if(!(empty($pushData[0]))){
-                    //目的毎に設定された目的地での滞在時間を減少させる
+                    //目的地毎に設定された目的地での滞在時間を減少させる
                     $maxTime -= intval($tolist->stay_second);
                     if($maxTime == 0){
                         $maxTime = -1;
                     }
-                    array_push($insData,$pushData);
                     //目的地(to)を出発地(from)に入れる
                     $from = $to;
-                    $i++;    
+                    $plancount++;    
                     break;
                 }
             }
         }
         //帰りの経路の算出
         $to = $spoint;
+        $time_ja = $this->setRow($from,$to,$maxTime);
         $pushData = array(
+            'time_ja'=>$time_ja,
             'name'=>$spoint_name,
             'address'=>$to,
         );
-        array_push($pushData,$this->setRow($from,$to,$maxTime));
         array_push($insData,$pushData);
         return $insData;
     }
@@ -118,12 +123,12 @@ class travelplanController extends Controller
      * @param int $maxTime 最大滞在時間
 	 *
 	 **/
-    public function setRow($from,$to,&$maxTime) :array
+    public function setRow($from,$to,&$maxTime) :String
     {
         $googleApi = new googleApiService();
         $res = $googleApi->getDirectionList($from,$to);
         if(empty($res)){
-            $row = Array();
+            $row = "";
         }else{
             //最大滞在時間が設定されていれば､移動時間を減少させる
             //設定されていなければ最大滞在時間を設定
@@ -132,13 +137,8 @@ class travelplanController extends Controller
             }else{
                 $maxTime = 7 * 60 * 60;
             }
-            //目的地の位置情報をセット
-            $row = array(
-                'lat'=>$res[0]->legs[0]->end_location->lat,
-                'lng'=>$res[0]->legs[0]->end_location->lng,
-                'time_ja'=>$res[0]->legs[0]->duration->text,
-                //'time_second'=>$res[0]->legs[0]->duration->value,
-            );
+            //目的地への移動時間をセット
+            $row = $res[0]->legs[0]->duration->text;
         }
         return $row;
     }
