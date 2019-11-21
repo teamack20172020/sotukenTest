@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 // 質問ポイントテーブルへの操作
 class Questionpoint extends Model
@@ -20,7 +21,7 @@ class Questionpoint extends Model
             ->select(\DB::raw('objective_id , sum(point * master.int_field01)  as sum_point'))
             ->join('master', function ($join) {
                 $join->on($this->table . '.objective_id', '=', 'master.sub_id')
-                     ->where('master.kbn', '=', 2);
+                     ->where('master.kbn', '=', config('api.database.master.objectiv_point.kbn'));
             })
             ->where(function ($query) use($answerList){
                 for($i=0;$i<count($answerList);$i++){

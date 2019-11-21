@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\Placekeyword;
-use App\Models\Placelist;
 use App\Models\Master;
+use App\Models\Placelist;
+use App\Models\Placekeyword;
+use Illuminate\Console\Command;
 use App\Http\Service\googleApiService;
+use Illuminate\Support\Facades\Config;
 
 class SavePlaceList extends Command
 {
@@ -46,13 +47,12 @@ class SavePlaceList extends Command
         $placelist = new Placelist();
         $placekeyword = new Placekeyword();
         $master = new Master();
-        $kbn = 1;
         //対象都道府県の目的地リストの削除
         $placelist->deleteByAreaId($areaId);
         //目的地候補リストの取得用キーワードを検索
         $items = $placekeyword->findByAreaId($areaId);
         //県コードから県名を取得
-        $area = $master->findByKbnAndSubId($kbn,$areaId)[0]->sub_name;
+        $area = $master->findByKbnAndSubId(config('api.database.master.area.kbn'),$areaId)[0]->sub_name;
         //キーワードごとに処理
         for($i=0;$i<count($items);$i++){
             //googleapiで目的地候補リストの取得
@@ -81,9 +81,9 @@ class SavePlaceList extends Command
                 //typeによって滞在時間を設定､typeがデータになければ固定値を設定
                 $stay_info = $master->findByKbnAndSubIdList($detailInfo['types']);
                 if(count($stay_info)>0){
-                    $stay_time = $master->findByKbnAndSubIdList($detailInfo['types'])[0]->stay_time;
+                    $stay_time = $stay_info[0]->stay_time;
                 }else{
-                    $stay_time = 5400;
+                    $stay_time = config('api.plan_setting.stay_scond_min');
                 }
 
                 array_push($insData ,

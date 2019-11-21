@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Objective;
 use App\Models\Placelist;
 use App\Http\Service\googleApiService;
+use Illuminate\Support\Facades\Config;
+
 
 //　旅行プランに関する操作
 class travelplanController extends Controller
@@ -135,7 +137,7 @@ class travelplanController extends Controller
             if($maxTime != 0){
                 $maxTime -= intval($res[0]->legs[0]->duration->value);
             }else{
-                $maxTime = 7 * 60 * 60;
+                $maxTime = config('api.plan_setting.stay_scond_max');
             }
             //目的地への移動時間をセット
             $row = $res[0]->legs[0]->duration->text;

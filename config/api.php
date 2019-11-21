@@ -30,7 +30,7 @@ return [
     ],
 
     //　DBに関する設定
-    'DB' =>[
+    'database' =>[
         'master' => [
             'area' => [
                 // マスタ区分
@@ -41,9 +41,17 @@ return [
             'objectiv_point' => [
                 'kbn' => '2',
             ],
-            'place_type' => [
+            'place_type' =>[
                 'kbn' => '3',
             ],
         ],
+    ],
+
+    // プランの作成に関する設定
+    'plan_setting' => [
+        // 最大滞在時間（単位：秒）
+        'stay_scond_max' => 25200,
+        // 最低滞在時間（単位：秒）
+        'stay_scond_min' => 5200,
     ],
 ];

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 //　マスターテーブルへの操作
 class Master extends Model
@@ -29,8 +30,8 @@ class Master extends Model
     public function findByKbnAndSubIdList($place_type_list) :array
     {
         $items = \DB::table($this->table)
-        ->select(\DB::raw('kbn , IFNULL(max(int_field01),5400)  as stay_time'))
-        ->where('kbn',3)
+        ->select(\DB::raw('kbn , IFNULL(max(int_field01),' . config('api.plan_setting.stay_scond_min') . ')  as stay_time'))
+        ->where('kbn',config('api.database.master.place_type.kbn'))
         ->whereIn('str_field01',$place_type_list)
         ->groupBy('kbn')
         ->get()->toArray();
