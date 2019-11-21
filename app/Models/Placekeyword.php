@@ -17,7 +17,7 @@ class Placekeyword extends Model
      **/
     public function findByAreaId($areaId) :array
     {
-        $items = \DB::table($this->table)->where('area_id',$areaId)->get()->toArray();
+        $items = \DB::table($this->table)->whereIn('area_id',[$areaId,config('db.master.area.all')])->get()->toArray();
         return $items;
     }
 }

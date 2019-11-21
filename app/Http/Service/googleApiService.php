@@ -3,6 +3,7 @@
 namespace App\Http\Service;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 // GoogleAppiへの操作
 class googleApiService extends apiService
@@ -15,13 +16,13 @@ class googleApiService extends apiService
 	 **/
 	public function getPlaceList($area,$objective) :array
 	{
-        $keyword = $area . "&&" . $objective;
-		$baseUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/';
+		$keyword = $area . "&&" . $objective;
+		$baseUrl = config('api.GoogleApi.place_text.url');
 		$param    = [
 			'query' => $keyword,
 			'language' => "ja",
 		];
-		$key = 'AIzaSyCSaGHq03_pZW5_xZEXeiJ-zTfxY2AAo7M';
+		$key = config('api.GoogleApi.place_text.key');
 		return (array) $this->post($baseUrl,$param,$key)->results;
 	}
 
@@ -32,13 +33,12 @@ class googleApiService extends apiService
 	 **/
 	public function getPlaceDetail($placeId) :array
 	{
-		$baseUrl = 'https://maps.googleapis.com/maps/api/place/details/';
+		$baseUrl = config('api.GoogleApi.place_detail.url');
 		$param    = [
 			'place_id' => $placeId,
 			'language' => "ja",
 		];
-		$key = 'AIzaSyCSaGHq03_pZW5_xZEXeiJ-zTfxY2AAo7M';
-		
+		$key = config('api.GoogleApi.place_detail.key');
 		return (array) $this->post($baseUrl,$param,$key)->result;
 	}
 	
@@ -50,7 +50,7 @@ class googleApiService extends apiService
 	 **/
 	public function getDirectionList($origin,$destination) :array
 	{
-		$baseUrl = 'https://maps.googleapis.com/maps/api/directions/';
+		$baseUrl = config('api.GoogleApi.directions.url');
 		$param    = [
 			'origin' => $origin,
 			'destination' => $destination,
@@ -59,7 +59,7 @@ class googleApiService extends apiService
 			//'traffic_model' => 'pessimistic',
 			'language' => "ja",
 		];
-		$key = 'AIzaSyBezdwuYFibJdo7TIjPJb_dbyq7Wi-vhfg';
+		$key = config('api.GoogleApi.directions.key');
 		return (array) $this->post($baseUrl,$param,$key)->routes;
 	}
 	
