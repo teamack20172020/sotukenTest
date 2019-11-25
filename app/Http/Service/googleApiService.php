@@ -25,17 +25,15 @@ class googleApiService extends apiService
 		$key = config('api.GoogleApi.place_text.key');
 		$res = array();
 		$response = $this->post($baseUrl,$param,$key);
-		$nextPageToken = $response->nextPageToken;
-		array_push($res,$response->results);
-		while(empty($nextPageToken)==false){
+		$res = array_merge($res,$response->results);
+		while(empty($response->next_page_token)==false){
 			sleep(2);
 			$param = [
-				'pagetoken' => $nextPageToken,
+				'pagetoken' => $response->next_page_token,
 				'language' => "ja",
 			];
 			$response = $this->post($baseUrl,$param,$key);
-			$nextPageToken = $response->nextPageToken;
-			array_push($res,$response->results);
+			$res = array_merge($res,$response->results);
 		}
 		return $res;
 		//return (array) $this->post($baseUrl,$param,$key)->results;

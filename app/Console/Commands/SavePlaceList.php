@@ -57,7 +57,7 @@ class SavePlaceList extends Command
         for($i=0;$i<count($items);$i++){
             //googleapiで目的地候補リストの取得
             $googleApi = new googleApiService();
-            $res = $googleApi->getPlaceList($area,$items[$i]->keyword);//"松島公園 公園");//
+            $res = $googleApi->getPlaceList($area,$items[$i]->keyword);
             $insData = array();
             //目的地候補ごとに処理
             for($j=0;$j<count($res);$j++){
@@ -65,7 +65,7 @@ class SavePlaceList extends Command
                 $detailInfo =  $googleApi->getPlaceDetail($res[$j]->place_id);
 
                 // 詳細情報が存在しなければ処理をスキップする
-                if(!is_null($detailInfo)){
+                if(is_null($detailInfo)){
                     break;
                 }
 
