@@ -64,6 +64,11 @@ class SavePlaceList extends Command
                 //目的地の詳細情報を取得
                 $detailInfo =  $googleApi->getPlaceDetail($res[$j]->place_id);
 
+                // 詳細情報が存在しなければ処理をスキップする
+                if(!is_null($detailInfo)){
+                    break;
+                }
+
                 //formatted_phone_number(電話番号)が設定されていなければ空白を挿入
                 if(isset($detailInfo['formatted_phone_number'])){
                     $phone_number = $detailInfo['formatted_phone_number'];
