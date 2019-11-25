@@ -66,7 +66,7 @@ class SavePlaceList extends Command
 
                 // 詳細情報が存在しなければ処理をスキップする
                 if(is_null($detailInfo)){
-                    break;
+                    continue;
                 }
 
                 //formatted_phone_number(電話番号)が設定されていなければ空白を挿入
