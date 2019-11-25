@@ -50,10 +50,12 @@ class travelplanController extends Controller
                 $count++;
                 //$obj = $main_obj;
                 $list = &$main_place;
+                $purpose = $main_objectiveId;
             }else{
                 if($main_objectiveId!=$sub_objectiveId){
                     //$obj = $sub_obj;
                     $list = &$sub_place;
+                    $purpose = $sub_objectiveId;
                 }
             }
 
@@ -75,7 +77,7 @@ class travelplanController extends Controller
                         'number'=>$tolist->phone_number,
                         'site-url'=>$tolist->site_url,
                         'latlng'=>$to,
-                        'types'=>$tolist->types,
+                        'purpose'=>$purpose,
                     );
                     array_push($insData,$pushData);
 
