@@ -23,7 +23,22 @@ class googleApiService extends apiService
 			'language' => "ja",
 		];
 		$key = config('api.GoogleApi.place_text.key');
-		return (array) $this->post($baseUrl,$param,$key)->results;
+		$res = array();
+		$response = $this->post($baseUrl,$param,$key);
+		$nextPageToken = $response->nextPageToken;
+		array_push($res,$response->results);
+		while(empty($nextPageToken)==false){
+			sleep(2);
+			$param = [
+				'pagetoken' => $nextPageToken,
+				'language' => "ja",
+			];
+			$response = $this->post($baseUrl,$param,$key);
+			$nextPageToken = $response->nextPageToken;
+			array_push($res,$response->results);
+		}
+		return $res;
+		//return (array) $this->post($baseUrl,$param,$key)->results;
 	}
 
 	/**
