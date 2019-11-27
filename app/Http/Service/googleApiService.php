@@ -36,7 +36,6 @@ class googleApiService extends apiService
 			$res = array_merge($res,$response->results);
 		}
 		return $res;
-		//return (array) $this->post($baseUrl,$param,$key)->results;
 	}
 
 	/**

@@ -50,3 +50,8 @@ Route::get('/answer-objective/getList/{answer}', 'questionController@getQuestion
  **/
 Route::get('/travelplan/create/{spoint_name}/{spoint}/{main_objectiveId}/{sub_objectiveId}/{areaId}', 'travelplanController@getTravelPlan');
 
+/**
+ * 目的: 移動時間の再計算
+ * 引数: latlng 緯度経度リスト
+ **/
+Route::get('/travelplan/timeset/{latlng}','travelplanController@getTimeSet');

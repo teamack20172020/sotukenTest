@@ -146,4 +146,33 @@ class travelplanController extends Controller
         }
         return $row;
     }
+
+    /**
+     * 目的: プランの移動時間を再計算する
+     * @param String $latlng 緯度経度リスト(:区切り)
+     **/
+    public function getTimeSet($latlng) :array
+    {
+        $googleApi = new googleApiService();
+        $array = explode(":",$latlng);
+        $max = count($array)-1;
+        $error_flg = 0;
+        $result = array();
+        $res = $googleApi->getDirectionList($array[$max],$array[0]);
+        for($i=0;$i<=$max;$i++){
+            if(empty($res)){
+                //経路がなくなった場合の処理
+                $error_flg = 1;
+            }else{
+                $row = $res[0]->legs[0]->duration->text;
+                array_push($result,$row);
+            }
+            if($i == $max || $error_flg == 1){
+                break;
+            }
+            $res = $googleApi->getDirectionList($array[$i],$array[$i+1]);
+        }
+        $result['error_flg'] = $error_flg;
+        return $result;
+    }
 }
