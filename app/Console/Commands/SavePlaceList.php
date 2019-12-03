@@ -47,8 +47,8 @@ class SavePlaceList extends Command
         $placelist = new Placelist();
         $placekeyword = new Placekeyword();
         $master = new Master();
-        //対象都道府県の目的地リストの削除
-        $placelist->deleteByAreaId($areaId);
+        //目的地リストから一番最後に作成された時間を取得(県コード毎)
+        $time = $placelist->findByAreaId($areaId)[0]->time;
         //目的地候補リストの取得用キーワードを検索
         $items = $placekeyword->findByAreaId($areaId);
         //県コードから県名を取得
@@ -106,6 +106,10 @@ class SavePlaceList extends Command
             }
             //データベースに目的地候補リストを登録
             $placelist->savelist($insData);
+        }
+        if(!is_null($time)){
+            //対象都道府県の目的地リストの削除
+            $placelist->deleteByAreaIdAndTime($areaId,$time);   
         }
         //目的地域が違うデータを削除する処理
         $placelist->deleteByAreaIdAndArea($area,$areaId);

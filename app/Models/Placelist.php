@@ -39,6 +39,19 @@ class Placelist extends Model
     }
 
     /**
+     * 目的: 目的地リストから県コード別の最終生成時刻を取得
+     * @param int $areaId 地域ID
+     **/
+    public function findByAreaId($areaId) :array
+    {
+        $items = \DB::table($this->table)
+            ->selectRaw('max(created) as time')
+            ->where('area_id',$areaId)
+            ->get()->toArray();
+        return $items;
+    }
+
+    /**
      * 目的: 目的地リストを保存
      * @param array $dataList　目的地リスト
      **/
@@ -50,10 +63,11 @@ class Placelist extends Model
     /**
      * 目的: 目的地リストを地域ID別に削除
      * @param int $areaId　地域ID
+     * @param int $time 最終生成時刻
      **/
-    public function deleteByAreaId($areaId) :void
+    public function deleteByAreaIdAndTime($areaId,$time) :void
     {
-        \DB::table($this->table)->where('area_id',$areaId)->delete();
+        \DB::table($this->table)->where('area_id',$areaId)->where('created','<=',$time)->delete();
     }
 
     /**
