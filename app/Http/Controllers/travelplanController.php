@@ -77,7 +77,7 @@ class travelplanController extends Controller
                         'number'=>$tolist->phone_number,
                         'site-url'=>$tolist->site_url,
                         'latlng'=>$to,
-                        'purpose'=>$purpose,
+                        'purpose'=>intval($purpose),
                     );
                     array_push($insData,$pushData);
 
