@@ -1,0 +1,17 @@
+@startuml
+
+skinparam monochrome true
+
+actor システム
+database 目的地一覧テーブル as DB
+participant 目的地
+participant GoogleDirectionApi
+database 旅行プラン一覧テーブル as DB2
+
+システム -> DB : 目的地域と目的に一致したら取得する
+DB -> 目的地 : 一件ランダムに取得
+目的地 -> GoogleDirectionApi : 出発地から目的地までの経路取得
+目的地 -> GoogleDirectionApi : データの整形
+GoogleDirectionApi -> DB2 : 整形したプランを返す
+
+@enduml

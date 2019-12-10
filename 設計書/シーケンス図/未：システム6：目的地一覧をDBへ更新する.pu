@@ -1,0 +1,15 @@
+
+@startuml
+
+skinparam monochrome true
+
+actor システム
+database 旅行目的一覧テーブル as DB
+participant GooglePlaceApi
+
+システム -> DB : 目的地検索キーワード取得
+DB -> GooglePlaceApi : 目的地詳細情報取得
+DB -> GooglePlaceApi : データの整形
+DB <- GooglePlaceApi : 登録
+
+@enduml

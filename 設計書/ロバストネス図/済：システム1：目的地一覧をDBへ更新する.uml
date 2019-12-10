@@ -1,0 +1,21 @@
+@startuml
+
+usecase 目的地一覧をDBへ更新する
+
+actor システム
+control 目的地検索キーワードの一覧取得
+control GooglePlaceAPIから目的地一覧の取得
+control 目的地一覧の登録
+
+entity 目的地検索キーワード
+entity 取得目的地一覧
+entity 登録目的地一覧
+
+システム --> 目的地検索キーワードの一覧取得 : アクセス
+目的地検索キーワードの一覧取得 -- 目的地検索キーワード : 問い合わせ
+目的地検索キーワードの一覧取得 --> GooglePlaceAPIから目的地一覧の取得 : 呼び出し
+GooglePlaceAPIから目的地一覧の取得 -- 取得目的地一覧 : 問い合わせ
+GooglePlaceAPIから目的地一覧の取得 --> 目的地一覧の登録 : 呼び出し
+目的地一覧の登録 -- 登録目的地一覧 : 出力
+
+@enduml

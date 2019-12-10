@@ -1,0 +1,11 @@
+@startuml
+
+skinparam monochrome true
+
+actor システム
+database 目的地一覧テーブル as DB
+
+システム -> DB : 全件取得
+システム <- DB : 結果を返す
+
+@enduml
