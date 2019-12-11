@@ -1,6 +1,6 @@
 @startuml
 
-usecase 旅行プランの目的地詳細情報を表示する
+usecase 旅行プランの一覧を表示する
 
 actor ユーザー
 

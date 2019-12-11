@@ -1,6 +1,6 @@
 @startuml
 
-usecase 旅行プランを表示する
+usecase 旅行プランの再取得をする
 
 actor ユーザー
 
