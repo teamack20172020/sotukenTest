@@ -4,9 +4,9 @@ usecase 住所で出発地を決める
 
 actor ユーザー
 
+boundary アラートを表示
 boundary 出発地決定画面
 boundary 住所入力画面
-boundary アラートを表示
 
 control 出発地の決定
 
