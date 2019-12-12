@@ -1,0 +1,17 @@
+@startuml
+
+usecase 目的一覧をDBから取得する
+
+actor システム
+
+control 旅行目的全件取得
+
+boundary AWSサーバー
+
+entity 旅行目的一覧
+
+システム --> AWSサーバー : アクセス
+AWSサーバー --> 旅行目的全件取得 : 呼び出し
+旅行目的全件取得 -- 旅行目的一覧 : 問い合わせ
+
+@enduml
