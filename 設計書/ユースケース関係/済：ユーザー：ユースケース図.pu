@@ -1,0 +1,39 @@
+@startuml
+
+left to right direction
+
+:ユーザー: as user
+
+(GPSで出発地を決める) as use1o1
+(住所で出発地を決める) as use1o2
+(駅名で出発地を決める) as use1o3
+(旅行診断ツールで目的を決める) as use2o1
+(目的地リストから目的を決める) as use2o2
+(旅行プランを表示する) as use3
+(旅行プランの目的地詳細情報を表示する) as use4o1
+(旅行プランの移動経路を表示する) as use4o2
+(旅行プランの保存をする) as use5o1
+(旅行プランの再取得をする) as use5o2
+(旅行プランの取得キャンセルをする) as use5o3
+(旅行プランの一覧を表示する) as use6
+(旅行プランを削除する) as use7
+(旅行プランの目的地の入れ替えをする) as use8o1
+(旅行プランの目的地の削除する) as use8o2
+
+user --> use1o1
+user --> use1o2
+user --> use1o3
+user --> use2o1
+user --> use2o2
+user --> use3
+user --> use4o1
+user --> use4o2
+user --> use5o1
+user --> use5o2
+user --> use5o3
+user --> use6
+user --> use7
+user --> use8o1
+user --> use8o2
+
+@enduml
