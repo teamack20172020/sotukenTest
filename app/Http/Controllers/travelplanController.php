@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Master;
 use App\Models\Objective;
 use App\Models\Placelist;
 use App\Http\Service\googleApiService;
@@ -26,10 +27,12 @@ class travelplanController extends Controller
         $maxTime = 0;
         $objective = new Objective();
         $placelist = new Placelist();
+        $master = new Master();
         $main_obj = $objective->getById($main_objectiveId);
         $sub_obj = $objective->getById($sub_objectiveId);
         $main_place = $placelist->findByAreaIdAndMAinObjectId($main_objectiveId,$areaId);
         $sub_place = $placelist->findByAreaIdAndSubObjectId($main_objectiveId,$sub_objectiveId,$areaId);
+        $latlng = $master->findByKbnAndSubId(config('api.database.master.area.kbn'),$areaId)[0]->str_field01;
 
         $from = $spoint;
         $count = 0;
@@ -66,7 +69,7 @@ class travelplanController extends Controller
                 //行き先の情報をセット
                 $to = $tolist->lat .",". $tolist->lng;
                 //目的地への移動時間を取得
-                $time_ja = $this->setRow($from,$to,$maxTime);
+                $time_ja = $this->setRow($from,$to,$maxTime,$latlng);
                 //移動時間が正しく取得できているかのチェック
                 if($time_ja != ""){
                     //プランを1行作成する
@@ -95,7 +98,7 @@ class travelplanController extends Controller
         }
         //帰りの経路の算出
         $to = $spoint;
-        $time_ja = $this->setRow($from,$to,$maxTime);
+        $time_ja = $this->setRow($from,$to,$maxTime,$latlng);
         $pushData = array(
             'time_ja'=>$time_ja,
             'name'=>$spoint_name,
@@ -125,14 +128,24 @@ class travelplanController extends Controller
 	 * @param String $from 出発地住所
      * @param String $to　目的地住所
      * @param int $maxTime 最大滞在時間
+     * @param String $latlng 初期出発地エラー用固定出発地
 	 *
 	 **/
-    public function setRow($from,$to,&$maxTime) :String
+    public function setRow(&$from,&$to,&$maxTime,$latlng) :String
     {
         $googleApi = new googleApiService();
         $res = $googleApi->getDirectionList($from,$to);
         if(empty($res)){
-            $row = "";
+            if($maxTime < 0){
+                $to = $latlng;
+                $res = $googleApi->getDirectionList($from,$to);
+                $row = $res[0]->legs[0]->duration->text;
+            }else if($maxTime == 0){
+                $from = $latlng;
+                $row = "";
+            }else{
+                $row = "";
+            }
         }else{
             //最大滞在時間が設定されていれば､移動時間を減少させる
             //設定されていなければ最大滞在時間を設定
