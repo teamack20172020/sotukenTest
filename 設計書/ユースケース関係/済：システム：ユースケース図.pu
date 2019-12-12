@@ -1,0 +1,21 @@
+@startuml
+
+left to right direction
+
+:システム: as user
+
+(目的地一覧をDBへ登録する) as sys1
+(プランの編集結果をもとに移動時間の再計算をする) as sys2
+(旅行プランの自動生成をする) as sys3
+(目的一覧をDBから取得する) as sys4
+(目的地一覧をDBから取得する) as sys5
+(質問一覧をDBから取得する) as sys6
+
+user --> sys1
+user --> sys2
+user --> sys3
+user --> sys4
+user --> sys5
+user --> sys6
+
+@enduml
