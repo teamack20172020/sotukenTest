@@ -17,7 +17,8 @@ package DB <<Database>>  {
 
     class 目的地リスト{
         # テーブル名
-        + 目的地リストの取得(地域ID:String,目的ID:String):array
+        + 主目的を条件に目的地リストの取得(地域ID:String,主目的ID:String):array
+        + 副目的を条件に目的地リストの取得(地域ID:String,副目的ID:String):array
     }
 }
 
