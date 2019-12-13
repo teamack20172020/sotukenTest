@@ -1,0 +1,30 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package サービス{
+
+    class Api {
+        # APIのURL
+        # APIのKEY
+        # 通信種別
+        # リクエストパラメター
+        + APIへrequestを実行する():String
+    }
+
+    class GooglePlaceAPI {
+        + ルートを取得(出発地:String,目的地:String):array
+    }
+
+    .Api o-- .GooglePlaceAPI
+}
+
+package コントローラ{
+    class 旅行プラン {
+        + プランの移動時間を再計算する(緯度経度リスト(":"区切り):array):void
+    }
+
+    .GooglePlaceAPI -- .旅行プラン
+}
+
+@enduml
