@@ -3,6 +3,7 @@
 skinparam classAttributeIconSize 0
 
 package DB <<Database>>  {
+    left to right direction
     class 目的地リスト検索用キーワード {
         # テーブル名
         + 目的地一覧の登録(目的地一覧:array):void
@@ -15,6 +16,7 @@ package DB <<Database>>  {
 }
 
 package サービス{
+    left to right direction
     class Api {
         # APIのURL
         # APIのKEY
@@ -23,11 +25,11 @@ package サービス{
         + APIへrequestを実行する():String
     }
 
-    .Api o-- .GooglePlaceAPI
-
     class GooglePlaceAPI {
         + 目的地リストを取得(地域ID:String,目的ID:String):array
     }
+
+    .Api o-- .GooglePlaceAPI
 }
 
 package コマンド{
