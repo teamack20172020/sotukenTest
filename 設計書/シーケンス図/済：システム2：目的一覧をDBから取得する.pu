@@ -1,11 +1,13 @@
 @startuml
 
-skinparam monochrome true
-
 actor システム
+
+boundary AWSサーバー
+
 database 目的一覧テーブル as DB
 
-システム -> DB : 全件取得
-システム <- DB : 結果を返す
+システム -> AWSサーバー : アクセス
+AWSサーバー -> DB : 旅行目的全件取得
+AWSサーバー <- DB : 結果を返す
 
 @enduml
