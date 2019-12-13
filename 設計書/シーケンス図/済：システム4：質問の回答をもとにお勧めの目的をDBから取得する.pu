@@ -1,11 +1,13 @@
 @startuml
 
-skinparam monochrome true
-
 actor システム
+
+boundary AWSサーバー
+
 database お勧め目的テーブル as DB
 
-システム -> DB : 質問の回答結果を条件に取得
-システム <- DB : 結果を返す
+システム -> AWSサーバー: アクセス
+AWSサーバー -> DB : 質問の回答結果を条件に取得
+AWSサーバー <- DB : 結果を返す
 
 @enduml
