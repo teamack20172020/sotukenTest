@@ -1,0 +1,23 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package DB <<Database>>  {
+    left to right direction
+
+    class 目的{
+        # テーブル名
+        + 全権取得():array
+    }
+}
+
+package コントローラ{
+    class 目的操作 {
+        + 目的一覧の取得():array
+    }
+
+    .目的 -- .目的操作
+
+}
+
+@enduml

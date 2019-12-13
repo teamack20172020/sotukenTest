@@ -6,6 +6,7 @@ package DB <<Database>>  {
     left to right direction
 
     class 目的{
+        # テーブル名
         + 目的の取得(目的ID:int):array
     }
 
