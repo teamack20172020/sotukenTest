@@ -19,6 +19,7 @@ left to right direction
 (旅行プランを削除する) as use7
 (旅行プランの目的地の入れ替えをする) as use8o1
 (旅行プランの目的地の削除する) as use8o2
+(旅行プランの詳細を表示する) as use9
 
 user --> use1o1
 user --> use1o2
@@ -35,5 +36,6 @@ user --> use6
 user --> use7
 user --> use8o1
 user --> use8o2
+user --> use9
 
 @enduml
