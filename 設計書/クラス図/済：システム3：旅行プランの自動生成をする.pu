@@ -1,0 +1,53 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package DB <<Database>>  {
+    left to right direction
+
+    class 目的{
+        + 目的の取得(目的ID:int):array
+    }
+
+    class マスタ{
+        # テーブル名
+        + マスタデータを取得(メイン区分:int,サブ区分:int):array
+    }
+
+    class 目的地リスト{
+        # テーブル名
+        + 目的地リストの取得(地域ID:String,目的ID:String):array
+    }
+}
+
+package サービス{
+    left to right direction
+    class Api {
+        # APIのURL
+        # APIのKEY
+        # 通信種別
+        # リクエストパラメター
+        + APIへrequestを実行する():String
+    }
+
+    class GooglePlaceAPI {
+        + 旅行プランの生成(出発地名:String,出発地座標:String,メイン目的ID:String,サブ目的ID:String,地域ID:String):array
+        + 目的地をランダムに取得(目的地リスト:array):array
+        + 経路を取得とプランの退避(出発地住所:String,目的地住所:String,最大滞在時間:int,初期出発地エラー用固定出発地:String):String
+    }
+
+    .Api o-- .GooglePlaceAPI
+}
+
+package コントローラ{
+    class 旅行プラン {
+        + プランの移動時間を再計算する(緯度経度リスト(":"区切り):array):void
+    }
+
+    .GooglePlaceAPI -- .旅行プラン
+    .マスタ -- .旅行プラン
+    .目的地リスト -- .旅行プラン
+    .目的 -- .旅行プラン
+}
+
+@enduml
