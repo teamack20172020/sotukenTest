@@ -4,12 +4,14 @@ skinparam classAttributeIconSize 0
 
 package DB <<Database>>  {
     left to right direction
-    class 目的地リスト検索用キーワード {
+    class 目的地リスト {
         # テーブル名
         + 目的地一覧の登録(目的地一覧:array):void
+        + 目的地リストから目的地域と違うデータを削除(地域名:String,地域ID:int)
+        + 目的地リストを地域ID別に削除(地域ID:int,最終生成時刻:int):void
     }
     
-    class 目的地リスト{
+    class 目的地リスト検索用キーワード{
         # テーブル名
         + 目的地検索キーワードの一覧取得(地域ID:int):array
     }
