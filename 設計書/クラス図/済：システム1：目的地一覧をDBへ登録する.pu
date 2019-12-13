@@ -1,0 +1,43 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package DB <<Database>>  {
+    class 目的地リスト検索用キーワード {
+        # テーブル名
+        + 目的地一覧の登録(目的地一覧:array):void
+    }
+    
+    class 目的地リスト{
+        # テーブル名
+        + 目的地検索キーワードの一覧取得(地域ID:int):array
+    }
+}
+
+package サービス{
+    class Api {
+        # APIのURL
+        # APIのKEY
+        # 通信種別
+        # リクエストパラメター
+        + APIへrequestを実行する():String
+    }
+
+    .Api o-- .GooglePlaceAPI
+
+    class GooglePlaceAPI {
+        + 目的地リストを取得(地域ID:String,目的ID:String):array
+    }
+}
+
+package コマンド{
+    class 目的地リスト登録 {
+        + 目的地一覧をDBへ登録する():void
+    }
+
+    .GooglePlaceAPI -- .目的地リスト登録
+    .目的地リスト -- .目的地リスト登録
+    .目的地リスト検索用キーワード -- .目的地リスト登録
+}
+
+@enduml
