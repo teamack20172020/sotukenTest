@@ -27,6 +27,7 @@ package サービス{
 
     class GooglePlaceAPI {
         + 目的地リストを取得(地域ID:String,目的ID:String):array
+        + 施設詳細情報を取得(場所ID:String):array
     }
 
     .Api o-- .GooglePlaceAPI
