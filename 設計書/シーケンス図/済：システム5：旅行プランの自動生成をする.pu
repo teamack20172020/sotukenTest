@@ -1,20 +1,14 @@
 @startuml
 
-usecase 旅行プランの自動生成をする
-
 actor システム
 
+boundary AWSサーバー
+
 entity 目的地一覧
-
-participant 目的地
-participant GoogleDirectionApi
-
 entity 旅行プラン一覧 
 
-システム -> AWSさ : 目的地域と目的に一致したら取得する
-DB -> 目的地 : 一件ランダムに取得
-目的地 -> GoogleDirectionApi : 出発地から目的地までの経路取得
-目的地 -> GoogleDirectionApi : データの整形
-GoogleDirectionApi -> DB2 : 整形したプランを返す
+システム -> AWSサーバー : アクセス
+AWSサーバー -> 目的地一覧 : 目的地の一覧取得
+目的地一覧 -> 旅行プラン一覧 : 旅行プランを生成する
 
 @enduml
