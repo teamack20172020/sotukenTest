@@ -4,10 +4,10 @@ actor システム
 
 boundary AWSサーバー
 
-database 目的地一覧テーブル as DB
+entity 旅行目的地一覧
 
 システム -> AWSサーバー : アクセス
-AWSサーバー -> DB : 旅行目的地全件取得
-AWSサーバー <- DB : 結果を返す
+AWSサーバー -> 旅行目的地一覧 : 旅行目的地全件取得
+AWSサーバー <- 旅行目的地一覧 : 結果を返す
 
 @enduml
