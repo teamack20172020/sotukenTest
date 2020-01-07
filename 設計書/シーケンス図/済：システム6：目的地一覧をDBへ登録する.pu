@@ -1,0 +1,25 @@
+
+@startuml
+
+actor システム
+
+boundary AWSサーバー
+
+control 目的地検索キーワードの一覧取得
+control GooglePlaceAPIから目的地一覧の取得
+control 目的地一覧の登録
+
+entity 目的地検索キーワード
+entity 取得目的地一覧
+entity 登録目的地一覧
+
+システム -> AWSサーバー : アクセス
+AWSサーバー -> 目的地検索キーワードの一覧取得 : 呼び出し
+目的地検索キーワードの一覧取得 -> 目的地検索キーワード : 問い合わせ
+目的地検索キーワードの一覧取得 -> GooglePlaceAPIから目的地一覧の取得 : 呼び出し
+GooglePlaceAPIから目的地一覧の取得 -> 取得目的地一覧 : 問い合わせ
+GooglePlaceAPIから目的地一覧の取得 -> 目的地一覧の登録 : 呼び出し
+目的地一覧の登録 -> 登録目的地一覧 : 登録
+
+
+@enduml
