@@ -1,0 +1,21 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+    class 駅{
+        + 路線情報取得:void
+    }
+
+    class ajax{
+        + ajax通信を行う(ajax通信をするURL:String,成功時に返すメソッドの区分:String,自作APIか外部APIかのフラグ:String,データタイプ:String):object
+        + 路線情報取得:void
+    }
+
+    駅 .-- ajax
+
+    class 画面遷移{
+        + ページ遷移先の取得:String
+        + ページ遷移先の設定:void
+    }
+    
+@enduml
