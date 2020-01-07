@@ -1,11 +1,13 @@
 @startuml
 
-skinparam monochrome true
-
 actor システム
-database 質問一覧テーブル as DB
 
-システム -> DB : 全件取得
-システム <- DB : 結果を返す
+boundary AWSサーバー
+
+entity 旅行診断用質問一覧
+
+システム -> AWSサーバー : アクセス
+AWSサーバー -> 旅行診断用質問一覧 : 旅行診断用質問全件取得
+AWSサーバー <- 旅行診断用質問一覧 : 結果を返す
 
 @enduml
