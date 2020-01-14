@@ -1,7 +1,5 @@
 @startuml
 
-usecase 旅行プランを表示する
-
 actor ユーザー
 
 boundary ホーム画面
