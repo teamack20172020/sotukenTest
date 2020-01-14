@@ -1,0 +1,15 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+    class プラン{
+        - 保存されているプランの目的地一覧:object
+		+ 保存されているプランの目的地を削除する():void
+	}
+    
+    class 画面遷移{
+        + ページ遷移先の取得:String
+        + ページ遷移先の設定:void
+    }
+    
+@enduml
