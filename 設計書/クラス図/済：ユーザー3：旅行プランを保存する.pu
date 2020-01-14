@@ -1,0 +1,15 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+    class プラン生成{
+        - プラン:object
+		+ プランを保存する():void
+	}
+    
+    class 画面遷移{
+        + ページ遷移先の取得:String
+        + ページ遷移先の設定:void
+    }
+    
+@enduml

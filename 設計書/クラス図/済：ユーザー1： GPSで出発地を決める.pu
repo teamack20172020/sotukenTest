@@ -3,8 +3,10 @@
 skinparam classAttributeIconSize 0
 
     class GPS{
-        + 位置情報を取得:object
-        + YahooMapの出力:void
+        - 緯度:int
+        - 経度:int
+        + 位置情報を取得():object
+        + YahooMapの出力():void
     }
 
     class yahooMap{

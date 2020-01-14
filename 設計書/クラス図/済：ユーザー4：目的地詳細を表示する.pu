@@ -1,0 +1,17 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+    class 目的地詳細{
+        - プラン:object
+        + 目的地詳細取得():void
+        + 目的地詳細表示():void
+    }
+	
+
+    class 画面遷移{
+        + ページ遷移先の取得:String
+        + ページ遷移先の設定:void
+    }
+    
+@enduml
